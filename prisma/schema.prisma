@@ -11,3 +11,18 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum UserType {
+  DELIVERY_PERSON
+  ADMIN
+}
+
+model User {
+  id       String   @id @default(uuid())
+  name     String
+  cpf      String   @unique @db.Char(11)
+  password String
+  type     UserType @default(DELIVERY_PERSON)
+
+  @@map("users")
+}
