@@ -1,8 +1,7 @@
-// import { Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common"
+import { UserRepository } from "../repositories/user-repository"
 
-// @Injectable()
-// export class RegisterUserUseCase {
-//   constructor(
-//     private userRepository
-//   )
-// }
+@Injectable()
+export class RegisterUserUseCase {
+  constructor(private userRepository: UserRepository) {}
+}
