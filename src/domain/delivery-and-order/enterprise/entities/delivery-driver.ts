@@ -1,13 +1,13 @@
 import { Entity } from "@/core/entities/entity"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
-export interface DeliveryPersonProps {
+export interface DeliveryDriverProps {
   cpf: string
   name: string
   password: string
 }
 
-export class DeliveryPerson extends Entity<DeliveryPersonProps> {
+export class DeliveryDriver extends Entity<DeliveryDriverProps> {
   get name() {
     return this.props.name
   }
@@ -20,9 +20,9 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
     return this.props.password
   }
 
-  static create(props: DeliveryPersonProps, id?: UniqueEntityID) {
-    const deliveryPerson = new DeliveryPerson(props, id)
+  static create(props: DeliveryDriverProps, id?: UniqueEntityID) {
+    const deliveryDriver = new DeliveryDriver(props, id)
 
-    return deliveryPerson
+    return deliveryDriver
   }
 }
