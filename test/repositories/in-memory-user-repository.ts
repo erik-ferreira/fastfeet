@@ -1,5 +1,4 @@
 import { User } from "@/domain/delivery-and-order/enterprise/entities/user"
-
 import { UserRepository } from "@/domain/delivery-and-order/application/repositories/user-repository"
 
 export class InMemoryUserRepository extends UserRepository {
