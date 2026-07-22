@@ -2,11 +2,13 @@ import { Injectable } from "@nestjs/common"
 
 import { Either, left, right } from "@/core/either"
 
+import { User } from "@/domain/delivery-and-order/enterprise/entities/user"
+
 import { DeliveryDriver } from "@/domain/delivery-and-order/enterprise/entities/delivery-driver"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
-import { User } from "../../enterprise/entities/user"
-import { OperatorAlreadyExistsError } from "./errors/operator-already-exists-error"
+
 import { HashGenerator } from "../cryptography/hash-generator"
+import { AlreadyExistsError } from "./errors/already-exists-error"
 
 interface CreateDeliveryDriverUseCaseRequest {
   name: string
@@ -15,7 +17,7 @@ interface CreateDeliveryDriverUseCaseRequest {
 }
 
 type CreateDeliveryDriverUseCaseResponse = Either<
-  OperatorAlreadyExistsError,
+  AlreadyExistsError,
   {
     deliveryDriver: DeliveryDriver
   }
@@ -37,7 +39,7 @@ export class CreateDeliveryDriverUseCase {
       await this.deliveryDriversRepository.findByCpf(cpf)
 
     if (deliveryDriverWithSameCpf) {
-      return left(new OperatorAlreadyExistsError(cpf))
+      return left(new AlreadyExistsError("User", cpf))
     }
 
     const hashedPassword = await this.hashGenerator.hash(password)

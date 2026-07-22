@@ -12,8 +12,16 @@ export class DeliveryDriver extends Entity<DeliveryDriverProps> {
     return this.props.name
   }
 
+  set name(newName: string) {
+    this.props.name = newName
+  }
+
   get cpf() {
     return this.props.cpf
+  }
+
+  set cpf(newCpf: string) {
+    this.props.cpf = newCpf
   }
 
   get password() {

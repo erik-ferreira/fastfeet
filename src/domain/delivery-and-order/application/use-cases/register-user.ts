@@ -6,7 +6,7 @@ import { User } from "@/domain/delivery-and-order/enterprise/entities/user"
 import { HashGenerator } from "@/domain/delivery-and-order/application/cryptography/hash-generator"
 import { UserRepository } from "@/domain/delivery-and-order/application/repositories/user-repository"
 
-import { OperatorAlreadyExistsError } from "./errors/operator-already-exists-error"
+import { AlreadyExistsError } from "./errors/already-exists-error"
 
 interface RegisterUserUseCaseRequest {
   name: string
@@ -14,10 +14,7 @@ interface RegisterUserUseCaseRequest {
   password: string
 }
 
-type RegisterUserUseCaseResponse = Either<
-  OperatorAlreadyExistsError,
-  { user: User }
->
+type RegisterUserUseCaseResponse = Either<AlreadyExistsError, { user: User }>
 
 @Injectable()
 export class RegisterUserUseCase {
@@ -34,7 +31,7 @@ export class RegisterUserUseCase {
     const userWithSameCpf = await this.userRepository.findByCpf(cpf)
 
     if (userWithSameCpf) {
-      return left(new OperatorAlreadyExistsError(cpf))
+      return left(new AlreadyExistsError("User", cpf))
     }
 
     const hashedPassword = await this.hashGenerator.hash(password)
