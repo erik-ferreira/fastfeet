@@ -17,22 +17,18 @@ describe("Fetch Delivery Drivers", () => {
   })
 
   it("should be able to fetch delivery drivers", async () => {
-    const deliveryDriver1 = makeDeliveryDriver(
-      {},
-      new UniqueEntityID("delivery-driver-1"),
-    )
-    const deliveryDriver2 = makeDeliveryDriver(
-      {},
-      new UniqueEntityID("delivery-driver-2"),
-    )
-    const deliveryDriver3 = makeDeliveryDriver(
-      {},
-      new UniqueEntityID("delivery-driver-3"),
-    )
-    const deliveryDriver4 = makeDeliveryDriver(
-      {},
-      new UniqueEntityID("delivery-driver-4"),
-    )
+    const deliveryDriver1 = makeDeliveryDriver({
+      cpf: "10000000000",
+    })
+    const deliveryDriver2 = makeDeliveryDriver({
+      cpf: "20000000000",
+    })
+    const deliveryDriver3 = makeDeliveryDriver({
+      cpf: "30000000000",
+    })
+    const deliveryDriver4 = makeDeliveryDriver({
+      cpf: "40000000000",
+    })
 
     await inMemoryDeliveryDriverRepository.create(deliveryDriver1)
     await inMemoryDeliveryDriverRepository.create(deliveryDriver2)
@@ -44,12 +40,26 @@ describe("Fetch Delivery Drivers", () => {
     })
 
     expect(result.value?.deliveryDrivers).toEqual([
-      expect.objectContaining({ id: "delivery-driver-1" }),
-      expect.objectContaining({ id: "delivery-driver-2" }),
-      expect.objectContaining({ id: "delivery-driver-3" }),
-      expect.objectContaining({ id: "delivery-driver-4" }),
+      expect.objectContaining({ cpf: "10000000000" }),
+      expect.objectContaining({ cpf: "20000000000" }),
+      expect.objectContaining({ cpf: "30000000000" }),
+      expect.objectContaining({ cpf: "40000000000" }),
     ])
   })
 
-  // it("should hash student password upon registration", async () => {})
+  it("should be able to fetch paginated delivery drivers", async () => {
+    for (let i = 1; i <= 22; i++) {
+      await inMemoryDeliveryDriverRepository.create(
+        makeDeliveryDriver({
+          cpf: `${i}0000000000`,
+        }),
+      )
+    }
+
+    const result = await sut.execute({
+      page: 2,
+    })
+
+    expect(result.value?.deliveryDrivers).toHaveLength(2)
+  })
 })
