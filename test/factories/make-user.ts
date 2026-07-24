@@ -14,7 +14,7 @@ export function makeUser(
   const user = User.create(
     {
       name: faker.person.fullName(),
-      cpf: faker.helpers.fromRegExp("###########"),
+      cpf: faker.string.numeric(11),
       password: faker.internet.password(),
       ...override,
     },
