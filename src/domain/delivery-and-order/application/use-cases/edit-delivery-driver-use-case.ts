@@ -11,8 +11,8 @@ import { AlreadyExistsError } from "./errors/already-exists-error"
 
 interface EditDeliveryDriverUseCaseRequest {
   deliveryDriverId: string
-  name: string
-  cpf: string
+  name?: string
+  cpf?: string
 }
 
 type EditDeliveryDriverUseCaseResponse = Either<
@@ -38,18 +38,23 @@ export class EditDeliveryDriverUseCase {
       return left(new ResourceNotFoundError())
     }
 
-    const deliveryDriverWithTheSameCpf =
-      await this.deliveryDriversRepository.findByCpf(cpf)
+    if (cpf) {
+      const deliveryDriverWithTheSameCpf =
+        await this.deliveryDriversRepository.findByCpf(cpf)
 
-    if (
-      deliveryDriverWithTheSameCpf &&
-      deliveryDriverWithTheSameCpf.id.toString() !== deliveryDriverId
-    ) {
-      return left(new AlreadyExistsError("Delivery Driver", cpf))
+      if (
+        deliveryDriverWithTheSameCpf &&
+        deliveryDriverWithTheSameCpf.id.toString() !== deliveryDriverId
+      ) {
+        return left(new AlreadyExistsError("Delivery Driver", cpf))
+      }
+
+      deliveryDriver.cpf = cpf
     }
 
-    deliveryDriver.name = name
-    deliveryDriver.cpf = cpf
+    if (name) {
+      deliveryDriver.name = name
+    }
 
     await this.deliveryDriversRepository.update(deliveryDriver)
 
