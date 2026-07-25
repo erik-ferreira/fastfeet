@@ -41,10 +41,10 @@ export class InMemoryDeliveryDriverRepository implements DeliveryDriversReposito
 
   async delete(deliveryDriver: DeliveryDriver) {
     const itemIndex = this.items.findIndex(
-      (item) => item.id === deliveryDriver.id,
+      (item) => item.cpf === deliveryDriver.cpf,
     )
 
-    this.items.splice(itemIndex, -1)
+    this.items.splice(itemIndex, 1)
   }
 
   async findMany({ page }: PaginationParams) {
