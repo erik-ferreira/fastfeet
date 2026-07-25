@@ -1,5 +1,3 @@
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
-
 import { makeDeliveryDriver } from "@/test/factories/make-delivery-driver"
 
 import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-delivery-driver-repository"
