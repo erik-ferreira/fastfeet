@@ -19,7 +19,6 @@ export function makeAdmin(
       cpf: faker.string.numeric(11),
       password: faker.internet.password(),
       ...override,
-      role: "admin",
     },
     id,
   )

@@ -10,7 +10,6 @@ export class PrismaAdminMapper {
         name: raw.name,
         cpf: raw.cpf,
         password: raw.password,
-        role: "ADMIN",
       },
       new UniqueEntityID(raw.id),
     )
@@ -22,7 +21,7 @@ export class PrismaAdminMapper {
       name: admin.name,
       cpf: admin.cpf,
       password: admin.password,
-      role: admin.role === "ADMIN" ? "ADMIN" : "DELIVERY_PERSON",
+      role: "ADMIN",
     }
   }
 }

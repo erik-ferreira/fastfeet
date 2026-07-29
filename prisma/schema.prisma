@@ -14,7 +14,7 @@ datasource db {
 }
 
 enum UserRole {
-  DELIVERY_PERSON
+  DELIVERY_DRIVER
   ADMIN
 }
 
@@ -23,7 +23,7 @@ model User {
   name     String
   cpf      String   @unique @db.Char(11)
   password String
-  role     UserRole @default(DELIVERY_PERSON)
+  role     UserRole @default(DELIVERY_DRIVER)
 
   @@map("users")
 }

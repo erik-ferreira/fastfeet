@@ -19,7 +19,6 @@ export function makeDeliveryDriver(
       cpf: faker.string.numeric(11),
       password: faker.internet.password(),
       ...override,
-      role: "delivery_driver",
     },
     id,
   )

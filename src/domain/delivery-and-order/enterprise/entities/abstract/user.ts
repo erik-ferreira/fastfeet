@@ -13,7 +13,9 @@ export interface UserProps {
   role: UserRole
 }
 
-export class User extends Entity<UserProps> {
+export abstract class User<
+  Props extends UserProps = UserProps,
+> extends Entity<Props> {
   get name() {
     return this.props.name
   }
@@ -28,11 +30,5 @@ export class User extends Entity<UserProps> {
 
   get role() {
     return this.props.role
-  }
-
-  static create(props: UserProps, id?: UniqueEntityID) {
-    const user = new User(props, id)
-
-    return user
   }
 }

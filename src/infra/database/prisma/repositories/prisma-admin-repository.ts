@@ -27,4 +27,14 @@ export class PrismaAdminRepository implements AdminRepository {
 
     return PrismaAdminMapper.toDomain(user)
   }
+
+  async findById(id: string): Promise<Admin | null> {
+    const user = await this.prisma.user.findUnique({ where: { id } })
+
+    if (!user) {
+      return null
+    }
+
+    return PrismaAdminMapper.toDomain(user)
+  }
 }
