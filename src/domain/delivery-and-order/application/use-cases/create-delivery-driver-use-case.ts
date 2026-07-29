@@ -2,10 +2,12 @@ import { Injectable } from "@nestjs/common"
 
 import { Either, left, right } from "@/core/either"
 
-import { User } from "@/domain/delivery-and-order/enterprise/entities/user"
-
 import { DeliveryDriver } from "@/domain/delivery-and-order/enterprise/entities/delivery-driver"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
+
+import { AdminRepository } from "@/domain/delivery-and-order/application/repositories/admin-repository"
+
+import { UnauthorizedError } from "@/core/errors/unauthorized-error"
 
 import { HashGenerator } from "../cryptography/hash-generator"
 import { AlreadyExistsError } from "./errors/already-exists-error"
@@ -14,10 +16,12 @@ interface CreateDeliveryDriverUseCaseRequest {
   name: string
   cpf: string
   password: string
+
+  idResponsibleByRequest: string
 }
 
 type CreateDeliveryDriverUseCaseResponse = Either<
-  AlreadyExistsError,
+  AlreadyExistsError | UnauthorizedError,
   {
     deliveryDriver: DeliveryDriver
   }
@@ -26,6 +30,7 @@ type CreateDeliveryDriverUseCaseResponse = Either<
 @Injectable()
 export class CreateDeliveryDriverUseCase {
   constructor(
+    private adminRepository: AdminRepository,
     private deliveryDriversRepository: DeliveryDriversRepository,
     private hashGenerator: HashGenerator,
   ) {}
@@ -34,7 +39,15 @@ export class CreateDeliveryDriverUseCase {
     name,
     cpf,
     password,
+
+    idResponsibleByRequest,
   }: CreateDeliveryDriverUseCaseRequest): Promise<CreateDeliveryDriverUseCaseResponse> {
+    const admin = await this.adminRepository.findById(idResponsibleByRequest)
+
+    if (!admin) {
+      return left(new UnauthorizedError())
+    }
+
     const deliveryDriverWithSameCpf =
       await this.deliveryDriversRepository.findByCpf(cpf)
 
@@ -44,7 +57,7 @@ export class CreateDeliveryDriverUseCase {
 
     const hashedPassword = await this.hashGenerator.hash(password)
 
-    const deliveryDriver = User.create({
+    const deliveryDriver = DeliveryDriver.create({
       cpf,
       name,
       password: hashedPassword,
