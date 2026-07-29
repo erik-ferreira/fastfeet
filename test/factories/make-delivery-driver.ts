@@ -7,8 +7,10 @@ import {
 
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
+type OmitDeliveryDriverProps = Omit<DeliveryDriverProps, "role">
+
 export function makeDeliveryDriver(
-  override: Partial<DeliveryDriverProps> = {},
+  override: Partial<OmitDeliveryDriverProps> = {},
   id?: UniqueEntityID,
 ) {
   const deliveryDriver = DeliveryDriver.create(
@@ -17,6 +19,7 @@ export function makeDeliveryDriver(
       cpf: faker.string.numeric(11),
       password: faker.internet.password(),
       ...override,
+      role: "delivery_driver",
     },
     id,
   )

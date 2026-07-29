@@ -1,14 +1,14 @@
 import { Module } from "@nestjs/common"
 
 import { PrismaService } from "./prisma/prisma.service"
-import { UserRepository } from "@/domain/delivery-and-order/application/repositories/user-repository"
-import { PrismaUserRepository } from "./prisma/repositories/prisma-user-repository"
+import { AdminRepository } from "@/domain/delivery-and-order/application/repositories/admin-repository"
+import { PrismaAdminRepository } from "./prisma/repositories/prisma-admin-repository"
 
 @Module({
   providers: [
     PrismaService,
-    { provide: UserRepository, useClass: PrismaUserRepository },
+    { provide: AdminRepository, useClass: PrismaAdminRepository },
   ],
-  exports: [PrismaService, UserRepository],
+  exports: [PrismaService, AdminRepository],
 })
 export class DatabaseModule {}

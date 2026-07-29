@@ -1,25 +1,28 @@
 import { faker } from "@faker-js/faker"
 
 import {
-  User,
-  UserProps,
-} from "@/domain/delivery-and-order/enterprise/entities/user"
+  Admin,
+  AdminProps,
+} from "@/domain/delivery-and-order/enterprise/entities/admin"
 
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
-export function makeUser(
-  override: Partial<UserProps> = {},
+type OmitAdminProps = Omit<AdminProps, "role">
+
+export function makeAdmin(
+  override: Partial<OmitAdminProps> = {},
   id?: UniqueEntityID,
 ) {
-  const user = User.create(
+  const admin = Admin.create(
     {
       name: faker.person.fullName(),
       cpf: faker.string.numeric(11),
       password: faker.internet.password(),
       ...override,
+      role: "admin",
     },
     id,
   )
 
-  return user
+  return admin
 }

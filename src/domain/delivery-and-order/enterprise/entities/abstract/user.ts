@@ -1,10 +1,16 @@
+import z from "zod"
+
 import { Entity } from "@/core/entities/entity"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+
+export const userRoleSchema = z.enum(["ADMIN", "DELIVERY_DRIVER"])
+export type UserRole = z.infer<typeof userRoleSchema>
 
 export interface UserProps {
   cpf: string
   name: string
   password: string
+  role: UserRole
 }
 
 export class User extends Entity<UserProps> {
@@ -18,6 +24,10 @@ export class User extends Entity<UserProps> {
 
   get password() {
     return this.props.password
+  }
+
+  get role() {
+    return this.props.role
   }
 
   static create(props: UserProps, id?: UniqueEntityID) {

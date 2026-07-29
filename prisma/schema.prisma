@@ -13,7 +13,7 @@ datasource db {
   provider = "postgresql"
 }
 
-enum UserType {
+enum UserRole {
   DELIVERY_PERSON
   ADMIN
 }
@@ -23,7 +23,7 @@ model User {
   name     String
   cpf      String   @unique @db.Char(11)
   password String
-  type     UserType @default(DELIVERY_PERSON)
+  role     UserRole @default(DELIVERY_PERSON)
 
   @@map("users")
 }

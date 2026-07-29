@@ -1,6 +1,6 @@
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { User, UserProps } from "./abstract/user"
 
-export interface DeliveryDriverProps extends UserProps {}
+export interface AdminProps extends UserProps {}
 
-export class DeliveryDriver extends User {}
+export class Admin extends User {}

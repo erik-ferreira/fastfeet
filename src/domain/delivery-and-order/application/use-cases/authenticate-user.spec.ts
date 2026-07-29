@@ -1,37 +1,37 @@
 import { FakeHasher } from "@/test/cryptography/fake-hasher"
 import { FakeEncrypter } from "@/test/cryptography/fake-encrypter"
 
-import { makeUser } from "@/test/factories/make-user"
-import { InMemoryUserRepository } from "@/test/repositories/in-memory-user-repository"
+import { makeAdmin } from "@/test/factories/make-admin"
+import { InMemoryAdminRepository } from "@/test/repositories/in-memory-admin-repository"
 
 import { AuthenticateUserUseCase } from "./authenticate-user"
 
 let fakeHasher: FakeHasher
 let fakeEncrypter: FakeEncrypter
-let inMemoryUserRepository: InMemoryUserRepository
+let inMemoryAdminRepository: InMemoryAdminRepository
 
 let sut: AuthenticateUserUseCase
 
 describe("Authenticate User", () => {
   beforeEach(() => {
-    inMemoryUserRepository = new InMemoryUserRepository()
+    inMemoryAdminRepository = new InMemoryAdminRepository()
     fakeHasher = new FakeHasher()
     fakeEncrypter = new FakeEncrypter()
 
     sut = new AuthenticateUserUseCase(
-      inMemoryUserRepository,
+      inMemoryAdminRepository,
       fakeHasher,
       fakeEncrypter,
     )
   })
 
-  it("should be able to authenticate a user", async () => {
-    const user = makeUser({
+  it("should be able to authenticate a admin", async () => {
+    const user = makeAdmin({
       cpf: "09809809811",
       password: await fakeHasher.hash("123456"),
     })
 
-    inMemoryUserRepository.items.push(user)
+    inMemoryAdminRepository.items.push(user)
 
     const result = await sut.execute({
       cpf: "09809809811",

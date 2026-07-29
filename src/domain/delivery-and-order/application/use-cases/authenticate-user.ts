@@ -4,7 +4,7 @@ import { Either, left, right } from "@/core/either"
 
 import { Encrypter } from "@/domain/delivery-and-order/application/cryptography/encrypter"
 import { HashComparer } from "@/domain/delivery-and-order/application/cryptography/hash-comparer"
-import { UserRepository } from "@/domain/delivery-and-order/application/repositories/user-repository"
+import { AdminRepository } from "@/domain/delivery-and-order/application/repositories/admin-repository"
 
 import { WrongCredentialsError } from "./errors/wrong-credentials-error"
 
@@ -21,7 +21,7 @@ type AuthenticateUserUseCaseResponse = Either<
 @Injectable()
 export class AuthenticateUserUseCase {
   constructor(
-    private userRepository: UserRepository,
+    private adminRepository: AdminRepository,
     private hashComparer: HashComparer,
     private encrypter: Encrypter,
   ) {}
@@ -30,7 +30,7 @@ export class AuthenticateUserUseCase {
     cpf,
     password,
   }: AuthenticateUserUseCaseRequest): Promise<AuthenticateUserUseCaseResponse> {
-    const user = await this.userRepository.findByCpf(cpf)
+    const user = await this.adminRepository.findByCpf(cpf)
 
     if (!user) {
       return left(new WrongCredentialsError())
@@ -40,11 +40,6 @@ export class AuthenticateUserUseCase {
       password,
       user.password,
     )
-
-    console.log("passwords", {
-      password,
-      passwordTwo: user.password,
-    })
 
     if (!passwordsMatched) {
       return left(new WrongCredentialsError())
