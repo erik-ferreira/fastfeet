@@ -19,11 +19,13 @@ enum UserRole {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  name     String
-  cpf      String   @unique @db.Char(11)
-  password String
-  role     UserRole @default(DELIVERY_DRIVER)
+  id        String    @id @default(uuid())
+  name      String
+  cpf       String    @unique @db.Char(11)
+  password  String
+  role      UserRole  @default(DELIVERY_DRIVER)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("users")
 }

@@ -11,6 +11,8 @@ export interface UserProps {
   name: string
   password: string
   role: UserRole
+  createdAt: Date
+  updatedAt?: Date | null
 }
 
 export abstract class User<
@@ -20,8 +22,18 @@ export abstract class User<
     return this.props.name
   }
 
+  set name(newName: string) {
+    this.props.name = newName
+    this.touch()
+  }
+
   get cpf() {
     return this.props.cpf
+  }
+
+  set cpf(newCpf: string) {
+    this.props.cpf = newCpf
+    this.touch()
   }
 
   get password() {
@@ -30,5 +42,17 @@ export abstract class User<
 
   get role() {
     return this.props.role
+  }
+
+  get createdAt() {
+    return this.props.createdAt
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date()
   }
 }
