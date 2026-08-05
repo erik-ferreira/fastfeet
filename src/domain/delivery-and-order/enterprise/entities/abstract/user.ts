@@ -1,13 +1,13 @@
 import z from "zod"
 
 import { Entity } from "@/core/entities/entity"
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+import { Cpf } from "../value-objects/cpf"
 
 export const userRoleSchema = z.enum(["ADMIN", "DELIVERY_DRIVER"])
 export type UserRole = z.infer<typeof userRoleSchema>
 
 export interface UserProps {
-  cpf: string
+  cpf: Cpf
   name: string
   password: string
   role: UserRole
@@ -31,7 +31,7 @@ export abstract class User<
     return this.props.cpf
   }
 
-  set cpf(newCpf: string) {
+  set cpf(newCpf: Cpf) {
     this.props.cpf = newCpf
     this.touch()
   }
