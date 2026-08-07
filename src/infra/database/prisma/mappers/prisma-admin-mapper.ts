@@ -1,5 +1,6 @@
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Admin } from "@/domain/delivery-and-order/enterprise/entities/admin"
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
 import { User as PrismaUser, Prisma, UserRole } from "@/generated/prisma/client"
 
@@ -8,7 +9,7 @@ export class PrismaAdminMapper {
     return Admin.create(
       {
         name: raw.name,
-        cpf: raw.cpf,
+        cpf: Cpf.create(raw.cpf),
         password: raw.password,
       },
       new UniqueEntityID(raw.id),
@@ -19,7 +20,7 @@ export class PrismaAdminMapper {
     return {
       id: admin.id.toString(),
       name: admin.name,
-      cpf: admin.cpf,
+      cpf: admin.cpf.raw,
       password: admin.password,
       role: "ADMIN",
     }

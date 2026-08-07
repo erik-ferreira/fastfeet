@@ -6,6 +6,7 @@ import { NotAllowedError } from "@/core/errors/not-allowed-error"
 import { UnauthorizedError } from "@/core/errors/unauthorized-error"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 import { DeliveryDriver } from "@/domain/delivery-and-order/enterprise/entities/delivery-driver"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
 
@@ -67,7 +68,7 @@ export class EditDeliveryDriverUseCase {
         return left(new AlreadyExistsError("Delivery Driver", cpf))
       }
 
-      deliveryDriver.cpf = cpf
+      deliveryDriver.cpf = Cpf.create(cpf)
     }
 
     if (name) {
