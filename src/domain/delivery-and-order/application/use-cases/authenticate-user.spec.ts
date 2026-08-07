@@ -5,6 +5,7 @@ import { makeAdmin } from "@/test/factories/make-admin"
 import { InMemoryAdminRepository } from "@/test/repositories/in-memory-admin-repository"
 
 import { AuthenticateUserUseCase } from "./authenticate-user"
+import { Cpf } from "../../enterprise/entities/value-objects/cpf"
 
 let fakeHasher: FakeHasher
 let fakeEncrypter: FakeEncrypter
@@ -27,7 +28,7 @@ describe("Authenticate User", () => {
 
   it("should be able to authenticate a admin", async () => {
     const user = makeAdmin({
-      cpf: "09809809811",
+      cpf: Cpf.create("09809809811"),
       password: await fakeHasher.hash("123456"),
     })
 

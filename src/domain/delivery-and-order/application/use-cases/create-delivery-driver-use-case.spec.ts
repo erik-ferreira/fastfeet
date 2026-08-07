@@ -4,6 +4,7 @@ import { FakeHasher } from "@/test/cryptography/fake-hasher"
 import { InMemoryAdminRepository } from "@/test/repositories/in-memory-admin-repository"
 import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-delivery-driver-repository"
 
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-cases/errors/already-exists-error"
 
 import { makeAdmin } from "@/test/factories/make-admin"
@@ -51,7 +52,9 @@ describe("Create Delivery Driver", () => {
     const admin = makeAdmin()
     await inMemoryAdminRepository.create(admin)
 
-    const deliveryDriver = makeDeliveryDriver({ cpf: "10000000000" })
+    const deliveryDriver = makeDeliveryDriver({
+      cpf: Cpf.create("10000000000"),
+    })
 
     await inMemoryDeliveryDriverRepository.create(deliveryDriver)
 

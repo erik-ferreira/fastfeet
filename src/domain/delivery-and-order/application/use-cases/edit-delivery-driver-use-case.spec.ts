@@ -6,6 +6,7 @@ import { makeDeliveryDriver } from "@/test/factories/make-delivery-driver"
 import { InMemoryAdminRepository } from "@/test/repositories/in-memory-admin-repository"
 import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-delivery-driver-repository"
 
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-cases/errors/already-exists-error"
 
 import { EditDeliveryDriverUseCase } from "./edit-delivery-driver-use-case"
@@ -32,7 +33,7 @@ describe("Edit Delivery Driver", () => {
     const deliveryDriver = makeDeliveryDriver(
       {
         name: "John Doe",
-        cpf: "10000000000",
+        cpf: Cpf.create("10000000000"),
         password: "123456",
       },
       new UniqueEntityID("1"),
@@ -63,7 +64,7 @@ describe("Edit Delivery Driver", () => {
     const deliveryDriver1 = makeDeliveryDriver(
       {
         name: "John Doe 1",
-        cpf: "10000000000",
+        cpf: Cpf.create("10000000000"),
         password: "123456",
       },
       new UniqueEntityID("1"),
@@ -72,7 +73,7 @@ describe("Edit Delivery Driver", () => {
     const deliveryDriver2 = makeDeliveryDriver(
       {
         name: "John Doe 2",
-        cpf: "20000000000",
+        cpf: Cpf.create("20000000000"),
         password: "123456",
       },
       new UniqueEntityID("2"),
@@ -99,7 +100,7 @@ describe("Edit Delivery Driver", () => {
     const deliveryDriver = makeDeliveryDriver(
       {
         name: "John Doe",
-        cpf: "10000000000",
+        cpf: Cpf.create("10000000000"),
         password: "123456",
       },
       new UniqueEntityID("1"),

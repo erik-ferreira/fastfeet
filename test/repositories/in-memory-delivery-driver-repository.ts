@@ -1,12 +1,15 @@
 import { DeliveryDriver } from "@/domain/delivery-and-order/enterprise/entities/delivery-driver"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
 import { PaginationParams } from "@/core/repositories/pagination-params"
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
 export class InMemoryDeliveryDriverRepository implements DeliveryDriversRepository {
   public items: DeliveryDriver[] = []
 
   async findByCpf(cpf: string) {
-    const deliveryDriver = this.items.find((item) => item.cpf === cpf)
+    const deliveryDriver = this.items.find((item) =>
+      item.cpf.equals(Cpf.create(cpf)),
+    )
 
     if (!deliveryDriver) {
       return null

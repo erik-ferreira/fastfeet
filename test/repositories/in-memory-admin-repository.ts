@@ -1,11 +1,12 @@
 import { Admin } from "@/domain/delivery-and-order/enterprise/entities/admin"
 import { AdminRepository } from "@/domain/delivery-and-order/application/repositories/admin-repository"
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
 export class InMemoryAdminRepository implements AdminRepository {
   public items: Admin[] = []
 
   async findByCpf(cpf: string) {
-    const admin = this.items.find((admin) => admin.cpf === cpf)
+    const admin = this.items.find((admin) => admin.cpf.equals(Cpf.create(cpf)))
 
     if (!admin) {
       return null

@@ -7,6 +7,8 @@ import { makeDeliveryDriver } from "@/test/factories/make-delivery-driver"
 import { InMemoryAdminRepository } from "@/test/repositories/in-memory-admin-repository"
 import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-delivery-driver-repository"
 
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
+
 import { DeleteDeliveryDriverUseCase } from "./delete-delivery-driver-use-case"
 
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository
@@ -28,7 +30,7 @@ describe("Delete Delivery Driver", () => {
     await inMemoryAdminRepository.create(admin)
 
     const deliveryDriver = makeDeliveryDriver({
-      cpf: "10000000000",
+      cpf: Cpf.create("10000000000"),
     })
 
     await inMemoryDeliveryDriverRepository.create(deliveryDriver)
@@ -62,7 +64,7 @@ describe("Delete Delivery Driver", () => {
     await inMemoryDeliveryDriverRepository.create(deliveryDriverToDelete)
 
     const result = await sut.execute({
-      cpf: deliveryDriverToDelete.cpf,
+      cpf: deliveryDriverToDelete.cpf.raw,
       idResponsibleByRequest: deliveryDriverToFetch.id.toString(),
     })
 

@@ -1,6 +1,8 @@
 import { UnauthorizedError } from "@/core/errors/unauthorized-error"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
+
 import { makeDeliveryDriver } from "@/test/factories/make-delivery-driver"
 
 import { InMemoryAdminRepository } from "@/test/repositories/in-memory-admin-repository"
@@ -27,23 +29,28 @@ describe("Get Delivery Driver By Cpf", () => {
     const admin = makeAdmin()
     await inMemoryAdminRepository.create(admin)
 
+    const validCpfString = "10000000000"
+
     const deliveryDriver = makeDeliveryDriver({
-      cpf: "10000000000",
+      cpf: Cpf.create(validCpfString),
     })
 
     await inMemoryDeliveryDriverRepository.create(deliveryDriver)
 
     const result = await sut.execute({
-      cpf: "10000000000",
+      cpf: validCpfString,
       idResponsibleByRequest: admin.id.toString(),
     })
 
     expect(result.isRight()).toBe(true)
-    expect(result.value).toMatchObject({
-      deliveryDriver: expect.objectContaining({
-        cpf: "10000000000",
-      }),
-    })
+
+    if (result.isRight()) {
+      expect(result.value).toMatchObject({
+        deliveryDriver: expect.objectContaining({
+          cpf: Cpf.create(validCpfString),
+        }),
+      })
+    }
   })
 
   it("should not be able to get delivery driver by cpf", async () => {
@@ -63,7 +70,7 @@ describe("Get Delivery Driver By Cpf", () => {
     const deliveryDriverToFetch = makeDeliveryDriver()
 
     const deliveryDriver = makeDeliveryDriver({
-      cpf: "10000000000",
+      cpf: Cpf.create("10000000000"),
     })
 
     await inMemoryDeliveryDriverRepository.create(deliveryDriver)
