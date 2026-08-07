@@ -11,6 +11,7 @@ import { UnauthorizedError } from "@/core/errors/unauthorized-error"
 
 import { HashGenerator } from "../cryptography/hash-generator"
 import { AlreadyExistsError } from "./errors/already-exists-error"
+import { Cpf } from "../../enterprise/entities/value-objects/cpf"
 
 interface CreateDeliveryDriverUseCaseRequest {
   name: string
@@ -58,7 +59,7 @@ export class CreateDeliveryDriverUseCase {
     const hashedPassword = await this.hashGenerator.hash(password)
 
     const deliveryDriver = DeliveryDriver.create({
-      cpf,
+      cpf: Cpf.create(cpf),
       name,
       password: hashedPassword,
     })

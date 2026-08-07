@@ -4,9 +4,11 @@ import { PrismaService } from "./prisma/prisma.service"
 
 import { AdminRepository } from "@/domain/delivery-and-order/application/repositories/admin-repository"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
+import { RecipientRepository } from "@/domain/delivery-and-order/application/repositories/recipient-repository"
 
 import { PrismaAdminRepository } from "./prisma/repositories/prisma-admin-repository"
 import { PrismaDeliveryDriverRepository } from "./prisma/repositories/prisma-delivery-driver-repository"
+import { PrismaRecipientRepository } from "./prisma/repositories/prisma-recipient-repository"
 
 @Module({
   providers: [
@@ -15,6 +17,10 @@ import { PrismaDeliveryDriverRepository } from "./prisma/repositories/prisma-del
     {
       provide: DeliveryDriversRepository,
       useClass: PrismaDeliveryDriverRepository,
+    },
+    {
+      provide: RecipientRepository,
+      useClass: PrismaRecipientRepository,
     },
   ],
   exports: [PrismaService, AdminRepository],

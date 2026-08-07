@@ -29,3 +29,15 @@ model User {
 
   @@map("users")
 }
+
+model Recipient {
+  id        String    @id @default(uuid())
+  name      String
+  cpf       String    @unique @db.Char(11)
+  latitude  Float
+  longitude Float
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  @@map("recipients")
+}
