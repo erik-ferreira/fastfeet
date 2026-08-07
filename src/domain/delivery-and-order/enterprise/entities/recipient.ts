@@ -33,6 +33,11 @@ export class Recipient extends Entity<RecipientProps> {
     return this.props.cpf
   }
 
+  set cpf(newCpf: Cpf) {
+    this.props.cpf = newCpf
+    this.touch()
+  }
+
   get latitude() {
     return this.props.latitude
   }

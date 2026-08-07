@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common"
 
 import { Either, left, right } from "@/core/either"
 
+import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 import { DeliveryDriver } from "@/domain/delivery-and-order/enterprise/entities/delivery-driver"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
 
@@ -11,7 +12,6 @@ import { UnauthorizedError } from "@/core/errors/unauthorized-error"
 
 import { HashGenerator } from "../cryptography/hash-generator"
 import { AlreadyExistsError } from "./errors/already-exists-error"
-import { Cpf } from "../../enterprise/entities/value-objects/cpf"
 
 interface CreateDeliveryDriverUseCaseRequest {
   name: string

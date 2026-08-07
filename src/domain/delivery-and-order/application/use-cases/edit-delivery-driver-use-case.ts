@@ -58,17 +58,19 @@ export class EditDeliveryDriverUseCase {
     }
 
     if (cpf) {
+      const newCpf = Cpf.create(cpf)
+
       const deliveryDriverWithTheSameCpf =
-        await this.deliveryDriversRepository.findByCpf(cpf)
+        await this.deliveryDriversRepository.findByCpf(newCpf.raw)
 
       if (
         deliveryDriverWithTheSameCpf &&
-        deliveryDriverWithTheSameCpf.id.toString() !== deliveryDriverId
+        !deliveryDriverWithTheSameCpf.id.equals(deliveryDriver.id)
       ) {
         return left(new AlreadyExistsError("Delivery Driver", cpf))
       }
 
-      deliveryDriver.cpf = Cpf.create(cpf)
+      deliveryDriver.cpf = newCpf
     }
 
     if (name) {
