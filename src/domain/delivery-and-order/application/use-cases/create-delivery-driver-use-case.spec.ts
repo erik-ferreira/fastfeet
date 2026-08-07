@@ -44,7 +44,7 @@ describe("Create Delivery Driver", () => {
     expect(result.isRight()).toBe(true)
     expect(inMemoryDeliveryDriverRepository.items).toHaveLength(1)
     expect(inMemoryDeliveryDriverRepository.items).toEqual([
-      expect.objectContaining({ cpf: "10000000000" }),
+      expect.objectContaining({ cpf: Cpf.create("10000000000") }),
     ])
   })
 

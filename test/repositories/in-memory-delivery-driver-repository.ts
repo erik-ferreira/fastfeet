@@ -52,7 +52,7 @@ export class InMemoryDeliveryDriverRepository implements DeliveryDriversReposito
 
   async findMany({ page }: PaginationParams) {
     const deliveryDrivers = this.items
-      // .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice((page - 1) * 20, page * 20)
 
     return deliveryDrivers
