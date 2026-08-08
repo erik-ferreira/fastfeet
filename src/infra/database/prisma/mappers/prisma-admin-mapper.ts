@@ -2,7 +2,7 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Admin } from "@/domain/delivery-and-order/enterprise/entities/admin"
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
-import { User as PrismaUser, Prisma, UserRole } from "@/generated/prisma/client"
+import { User as PrismaUser, Prisma } from "@/generated/prisma/client"
 
 export class PrismaAdminMapper {
   static toDomain(raw: PrismaUser): Admin {

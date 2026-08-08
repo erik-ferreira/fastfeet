@@ -27,6 +27,8 @@ model User {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
+  orders Order[]
+
   @@map("users")
 }
 
@@ -34,10 +36,56 @@ model Recipient {
   id        String    @id @default(uuid())
   name      String
   cpf       String    @unique @db.Char(11)
-  latitude  Float
-  longitude Float
+  latitude  Decimal
+  longitude Decimal
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
+  orders Order[]
+
   @@map("recipients")
+}
+
+enum OrderStatus {
+  PENDING
+  WAITING
+  WITHDRAWN
+  DELIVERED
+  RETURNED
+}
+
+model Attachment {
+  id    String @id @default(uuid())
+  title String
+  url   String
+
+  order Order?
+
+  @@map("attachments")
+}
+
+model Order {
+  id        String      @id @default(uuid())
+  title     String
+  status    OrderStatus @default(PENDING)
+  latitude  Decimal
+  longitude Decimal
+
+  recipientId      String  @map("recipient_id")
+  deliveryDriverId String? @map("delivery_driver_id")
+  attachmentId     String? @unique @map("attachment_id")
+
+  postedAt    DateTime? @map("posted_at")
+  withdrawnAt DateTime? @map("withdrawn_at")
+  deliveredAt DateTime? @map("delivered_at")
+  returnedAt  DateTime? @map("returned_at")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  recipient      Recipient   @relation(fields: [recipientId], references: [id])
+  deliveryDriver User?       @relation(fields: [deliveryDriverId], references: [id])
+  attachment     Attachment? @relation(fields: [attachmentId], references: [id])
+
+  @@map("orders")
 }
