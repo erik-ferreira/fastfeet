@@ -1,34 +1,22 @@
-import { makeAdmin } from "@/test/factories/make-admin"
 import { makeRecipient } from "@/test/factories/make-recipient"
 
-import { InMemoryAdminRepository } from "@/test/repositories/in-memory-admin-repository"
 import { InMemoryRecipientRepository } from "@/test/repositories/in-memory-recipient-repository"
 
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
-import { UnauthorizedError } from "@/core/errors/unauthorized-error"
-
 import { FetchRecipientsUseCase } from "./fetch-recipients-use-case"
 
 let inMemoryRecipientRepository: InMemoryRecipientRepository
-let inMemoryAdminRepository: InMemoryAdminRepository
 let sut: FetchRecipientsUseCase
 
 describe("Fetch Recipients", () => {
   beforeEach(() => {
     inMemoryRecipientRepository = new InMemoryRecipientRepository()
-    inMemoryAdminRepository = new InMemoryAdminRepository()
 
-    sut = new FetchRecipientsUseCase(
-      inMemoryAdminRepository,
-      inMemoryRecipientRepository,
-    )
+    sut = new FetchRecipientsUseCase(inMemoryRecipientRepository)
   })
 
   it("should be able to fetch recipients", async () => {
-    const admin = makeAdmin()
-    await inMemoryAdminRepository.create(admin)
-
     const recipient1 = makeRecipient({
       cpf: Cpf.create("10000000000"),
     })
@@ -49,7 +37,6 @@ describe("Fetch Recipients", () => {
 
     const result = await sut.execute({
       page: 1,
-      idResponsibleByRequest: admin.id.toString(),
     })
 
     expect(result.isRight()).toBe(true)
@@ -72,12 +59,8 @@ describe("Fetch Recipients", () => {
       )
     }
 
-    const admin = makeAdmin()
-    await inMemoryAdminRepository.create(admin)
-
     const result = await sut.execute({
       page: 2,
-      idResponsibleByRequest: admin.id.toString(),
     })
 
     expect(result.isRight()).toBe(true)

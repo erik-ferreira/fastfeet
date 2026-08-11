@@ -1,10 +1,7 @@
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
-import { UnauthorizedError } from "@/core/errors/unauthorized-error"
 
-import { makeAdmin } from "@/test/factories/make-admin"
 import { makeRecipient } from "@/test/factories/make-recipient"
 
-import { InMemoryAdminRepository } from "@/test/repositories/in-memory-admin-repository"
 import { InMemoryRecipientRepository } from "@/test/repositories/in-memory-recipient-repository"
 
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
@@ -13,23 +10,15 @@ import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-
 import { EditRecipientUseCase } from "./edit-recipient-use-case"
 
 let inMemoryRecipientRepository: InMemoryRecipientRepository
-let inMemoryAdminRepository: InMemoryAdminRepository
 let sut: EditRecipientUseCase
 
 describe("Edit Recipient", () => {
   beforeEach(() => {
     inMemoryRecipientRepository = new InMemoryRecipientRepository()
-    inMemoryAdminRepository = new InMemoryAdminRepository()
-    sut = new EditRecipientUseCase(
-      inMemoryAdminRepository,
-      inMemoryRecipientRepository,
-    )
+    sut = new EditRecipientUseCase(inMemoryRecipientRepository)
   })
 
   it("should be able to edit a recipient", async () => {
-    const admin = makeAdmin()
-    await inMemoryAdminRepository.create(admin)
-
     const recipient = makeRecipient(
       {
         name: "John Doe",
@@ -46,7 +35,6 @@ describe("Edit Recipient", () => {
       name: "Erik",
       cpf: "20000000000",
       recipientId: new UniqueEntityID("1").toString(),
-      idResponsibleByRequest: admin.id.toString(),
     })
 
     expect(result.isRight()).toBe(true)
@@ -59,9 +47,6 @@ describe("Edit Recipient", () => {
   })
 
   it("should not be able to edit a recipient with the same cpf", async () => {
-    const admin = makeAdmin()
-    await inMemoryAdminRepository.create(admin)
-
     const recipient1 = makeRecipient(
       {
         name: "John Doe 1",
@@ -87,7 +72,6 @@ describe("Edit Recipient", () => {
     const result = await sut.execute({
       cpf: "20000000000",
       recipientId: new UniqueEntityID("1").toString(),
-      idResponsibleByRequest: admin.id.toString(),
     })
 
     expect(result.isLeft()).toBe(true)

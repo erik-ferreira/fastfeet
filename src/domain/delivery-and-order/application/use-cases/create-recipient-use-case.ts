@@ -6,9 +6,6 @@ import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objec
 import { Recipient } from "@/domain/delivery-and-order/enterprise/entities/recipient"
 import { RecipientRepository } from "@/domain/delivery-and-order/application/repositories/recipient-repository"
 
-import { AdminRepository } from "@/domain/delivery-and-order/application/repositories/admin-repository"
-
-import { UnauthorizedError } from "@/core/errors/unauthorized-error"
 import { AlreadyExistsError } from "./errors/already-exists-error"
 
 interface CreateRecipientUseCaseRequest {
@@ -16,11 +13,10 @@ interface CreateRecipientUseCaseRequest {
   cpf: string
   latitude: number
   longitude: number
-  idResponsibleByRequest: string
 }
 
 type CreateRecipientUseCaseResponse = Either<
-  AlreadyExistsError | UnauthorizedError,
+  AlreadyExistsError,
   {
     recipient: Recipient
   }
@@ -28,24 +24,14 @@ type CreateRecipientUseCaseResponse = Either<
 
 @Injectable()
 export class CreateRecipientUseCase {
-  constructor(
-    private adminRepository: AdminRepository,
-    private recipientRepository: RecipientRepository,
-  ) {}
+  constructor(private recipientRepository: RecipientRepository) {}
 
   async execute({
     name,
     cpf,
     latitude,
     longitude,
-    idResponsibleByRequest,
   }: CreateRecipientUseCaseRequest): Promise<CreateRecipientUseCaseResponse> {
-    const admin = await this.adminRepository.findById(idResponsibleByRequest)
-
-    if (!admin) {
-      return left(new UnauthorizedError())
-    }
-
     const recipientWithSameCpf = await this.recipientRepository.findByCpf(cpf)
 
     if (recipientWithSameCpf) {
