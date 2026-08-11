@@ -10,8 +10,8 @@ export class PrismaRecipienteMapper {
       {
         name: raw.name,
         cpf: Cpf.create(raw.cpf),
-        latitude: raw.latitude,
-        longitude: raw.longitude,
+        latitude: raw.latitude.toNumber(),
+        longitude: raw.longitude.toNumber(),
       },
       new UniqueEntityID(raw.id),
     )
