@@ -11,10 +11,10 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 interface EditOrderUseCaseRequest {
   orderId: string
-  title: string
-  latitude: number
-  longitude: number
-  recipientId: string
+  title?: string
+  latitude?: number
+  longitude?: number
+  recipientId?: string
 }
 
 type EditOrderUseCaseResponse = Either<

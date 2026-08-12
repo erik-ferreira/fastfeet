@@ -30,10 +30,10 @@ export type OrderCreateProps = Optional<
 >
 
 interface OrderUpdateProps {
-  title: string
-  latitude: number
-  longitude: number
-  recipientId: UniqueEntityID
+  title?: string
+  latitude?: number
+  longitude?: number
+  recipientId?: UniqueEntityID
 }
 
 export class Order extends Entity<OrderProps> {
@@ -173,10 +173,10 @@ export class Order extends Entity<OrderProps> {
       )
     }
 
-    this.props.title = title
-    this.props.latitude = latitude
-    this.props.longitude = longitude
-    this.props.recipientId = recipientId
+    this.props.title = title ?? this.props.title
+    this.props.latitude = latitude ?? this.props.latitude
+    this.props.longitude = longitude ?? this.props.longitude
+    this.props.recipientId = recipientId ?? this.props.recipientId
     this.touch()
   }
 }
