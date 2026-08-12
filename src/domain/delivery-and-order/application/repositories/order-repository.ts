@@ -1,3 +1,4 @@
+import { NearbyParams } from "@/core/repositories/nearby-params"
 import { PaginationParams } from "@/core/repositories/pagination-params"
 import { Order } from "@/domain/delivery-and-order/enterprise/entities/order"
 
@@ -7,4 +8,5 @@ export abstract class OrderRepository {
   abstract delete(order: Order): Promise<void>
   abstract findById(id: string): Promise<Order | null>
   abstract findMany(params: PaginationParams): Promise<Order[]>
+  abstract findManyNearby(params: NearbyParams): Promise<Order[]>
 }

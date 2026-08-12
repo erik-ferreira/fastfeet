@@ -1,6 +1,9 @@
 import { Order } from "@/domain/delivery-and-order/enterprise/entities/order"
 import { OrderRepository } from "@/domain/delivery-and-order/application/repositories/order-repository"
+
+import { NearbyParams } from "@/core/repositories/nearby-params"
 import { PaginationParams } from "@/core/repositories/pagination-params"
+import { getDistanceBetweenCoordinates } from "@/core/utils/get-distance-between-coordinates"
 
 export class InMemoryRecipientRepository implements OrderRepository {
   public items: Order[] = []
@@ -39,5 +42,25 @@ export class InMemoryRecipientRepository implements OrderRepository {
     const itemIndex = this.items.findIndex((item) => item.id === order.id)
 
     this.items.splice(itemIndex, 1)
+  }
+
+  async findManyNearby(params: NearbyParams): Promise<Order[]> {
+    const orders = this.items.filter((order) => {
+      const isAvailable =
+        order.status === "PENDING" || order.status === "WAITING"
+
+      if (!isAvailable) {
+        return false
+      }
+
+      const distance = getDistanceBetweenCoordinates(
+        { latitude: params.latitude, longitude: params.longitude },
+        { latitude: order.latitude, longitude: order.longitude },
+      )
+
+      return distance < 10
+    })
+
+    return orders
   }
 }

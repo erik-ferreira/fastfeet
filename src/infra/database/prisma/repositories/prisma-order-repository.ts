@@ -1,9 +1,11 @@
 import { Injectable } from "@nestjs/common"
+import { Order as PrismaOrder } from "@/generated/prisma/client"
 
 import { PrismaService } from "@/infra/database/prisma/prisma.service"
 
 import { OrderRepository } from "@/domain/delivery-and-order/application/repositories/order-repository"
 
+import { NearbyParams } from "@/core/repositories/nearby-params"
 import { PaginationParams } from "@/core/repositories/pagination-params"
 
 import { Order } from "@/domain/delivery-and-order/enterprise/entities/order"
@@ -53,5 +55,24 @@ export class PrismaOrderRepository implements OrderRepository {
     })
 
     return orders.map(PrismaOrderMapper.toDomain)
+  }
+
+  async findManyNearby({
+    latitude,
+    longitude,
+  }: NearbyParams): Promise<Order[]> {
+    const rawOrders = await this.prisma.$queryRaw<PrismaOrder[]>`
+    SELECT * FROM orders
+    WHERE status IN ('PENDING', 'WAITING')
+    AND (
+      6371 * acos(
+        cos(radians(${latitude})) * cos(radians(latitude)) *
+        cos(radians(longitude) - radians(${longitude})) +
+        sin(radians(${latitude})) * sin(radians(latitude))
+      )
+    ) < 10
+  `
+
+    return rawOrders.map(PrismaOrderMapper.toDomain)
   }
 }
