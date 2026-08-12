@@ -5,11 +5,11 @@ import { Either, right } from "@/core/either"
 import { Order } from "@/domain/delivery-and-order/enterprise/entities/order"
 import { OrderRepository } from "@/domain/delivery-and-order/application/repositories/order-repository"
 
-interface FetchOrdersDetailsUseCaseRequest {
+interface FetchOrdersUseCaseRequest {
   page: number
 }
 
-type FetchOrdersDetailsUseCaseResponse = Either<
+type FetchOrdersUseCaseResponse = Either<
   null,
   {
     orders: Order[]
@@ -22,7 +22,7 @@ export class FetchOrdersUseCase {
 
   async execute({
     page,
-  }: FetchOrdersDetailsUseCaseRequest): Promise<FetchOrdersDetailsUseCaseResponse> {
+  }: FetchOrdersUseCaseRequest): Promise<FetchOrdersUseCaseResponse> {
     const orders = await this.ordersRepository.findMany({ page })
 
     return right({ orders })

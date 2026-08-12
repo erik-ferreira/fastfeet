@@ -44,22 +44,60 @@ export class InMemoryRecipientRepository implements OrderRepository {
     this.items.splice(itemIndex, 1)
   }
 
-  async findManyNearby(params: NearbyParams): Promise<Order[]> {
-    const orders = this.items.filter((order) => {
-      const isAvailable =
-        order.status === "PENDING" || order.status === "WAITING"
+  async findManyNearby({
+    page,
+    latitude,
+    longitude,
+  }: NearbyParams): Promise<Order[]> {
+    const orders = this.items
+      .filter((order) => {
+        const isAvailable =
+          order.status === "PENDING" || order.status === "WAITING"
 
-      if (!isAvailable) {
-        return false
-      }
+        if (!isAvailable) {
+          return false
+        }
 
-      const distance = getDistanceBetweenCoordinates(
-        { latitude: params.latitude, longitude: params.longitude },
-        { latitude: order.latitude, longitude: order.longitude },
+        const distance = getDistanceBetweenCoordinates(
+          { latitude: latitude, longitude: longitude },
+          { latitude: order.latitude, longitude: order.longitude },
+        )
+
+        return distance < 10
+      })
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((page - 1) * 20, page * 20)
+
+    return orders
+  }
+
+  async findManyByDeliveryDriver(
+    deliveryDriverId: string,
+    { page }: PaginationParams,
+  ): Promise<Order[]> {
+    const orders = this.items
+      .filter(
+        (order) =>
+          order.deliveryDriverId &&
+          order.deliveryDriverId.toString() === deliveryDriverId,
       )
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((page - 1) * 20, page * 20)
 
-      return distance < 10
-    })
+    return orders
+  }
+
+  async findManyFromSpecificRecipient(
+    recipientId: string,
+    { page }: PaginationParams,
+  ): Promise<Order[]> {
+    const orders = this.items
+      .filter(
+        (order) =>
+          order.recipientId && order.recipientId.toString() === recipientId,
+      )
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((page - 1) * 20, page * 20)
 
     return orders
   }

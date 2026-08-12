@@ -58,21 +58,59 @@ export class PrismaOrderRepository implements OrderRepository {
   }
 
   async findManyNearby({
+    page,
     latitude,
     longitude,
   }: NearbyParams): Promise<Order[]> {
+    const ITEMS_PER_PAGE = 20
+    const offset = (page - 1) * ITEMS_PER_PAGE
+
     const rawOrders = await this.prisma.$queryRaw<PrismaOrder[]>`
-    SELECT * FROM orders
-    WHERE status IN ('PENDING', 'WAITING')
-    AND (
-      6371 * acos(
-        cos(radians(${latitude})) * cos(radians(latitude)) *
-        cos(radians(longitude) - radians(${longitude})) +
-        sin(radians(${latitude})) * sin(radians(latitude))
-      )
-    ) < 10
-  `
+      SELECT * FROM orders
+      WHERE status IN ('PENDING', 'WAITING')
+      AND (
+        6371 * acos(
+          cos(radians(${latitude})) * cos(radians(latitude)) *
+          cos(radians(longitude) - radians(${longitude})) +
+          sin(radians(${latitude})) * sin(radians(latitude))
+        )
+      ) < 10
+      LIMIT ${ITEMS_PER_PAGE}
+      OFFSET ${offset}
+    `
 
     return rawOrders.map(PrismaOrderMapper.toDomain)
+  }
+
+  async findManyByDeliveryDriver(
+    deliveryDriverId: string,
+    { page }: PaginationParams,
+  ): Promise<Order[]> {
+    const orders = await this.prisma.order.findMany({
+      where: { deliveryDriverId },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 20,
+      skip: (page - 1) * 20,
+    })
+
+    return orders.map(PrismaOrderMapper.toDomain)
+  }
+
+  async findManyFromSpecificRecipient(
+    recipientId: string,
+    { page }: PaginationParams,
+  ): Promise<Order[]> {
+    const orders = await this.prisma.order.findMany({
+      where: { recipientId },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 20,
+      skip: (page - 1) * 20,
+    })
+
+    return orders.map(PrismaOrderMapper.toDomain)
   }
 }

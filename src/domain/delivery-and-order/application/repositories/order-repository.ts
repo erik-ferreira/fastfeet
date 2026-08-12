@@ -9,4 +9,12 @@ export abstract class OrderRepository {
   abstract findById(id: string): Promise<Order | null>
   abstract findMany(params: PaginationParams): Promise<Order[]>
   abstract findManyNearby(params: NearbyParams): Promise<Order[]>
+  abstract findManyByDeliveryDriver(
+    deliveryDriverId: string,
+    params: PaginationParams,
+  ): Promise<Order[]>
+  abstract findManyFromSpecificRecipient(
+    recipientId: string,
+    params: PaginationParams,
+  ): Promise<Order[]>
 }
