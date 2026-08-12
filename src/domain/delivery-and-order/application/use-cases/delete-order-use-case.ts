@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common"
 
 import { Either, left, right } from "@/core/either"
 
-import { NotAllowedError } from "@/core/errors/not-allowed-error"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { OrderRepository } from "@/domain/delivery-and-order/application/repositories/order-repository"
@@ -11,10 +10,7 @@ interface DeleteOrderUseCaseRequest {
   id: string
 }
 
-type DeleteOrderUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowedError,
-  null
->
+type DeleteOrderUseCaseResponse = Either<ResourceNotFoundError, null>
 
 @Injectable()
 export class DeleteOrderUseCase {

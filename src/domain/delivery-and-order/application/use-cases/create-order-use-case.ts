@@ -9,8 +9,6 @@ import {
 } from "@/domain/delivery-and-order/enterprise/entities/order"
 import { OrderRepository } from "@/domain/delivery-and-order/application/repositories/order-repository"
 
-import { UnauthorizedError } from "@/core/errors/unauthorized-error"
-
 interface CreateOrderUseCaseRequest {
   title: string
   status: OrderStatus
@@ -23,7 +21,7 @@ interface CreateOrderUseCaseRequest {
 }
 
 type CreateOrderUseCaseResponse = Either<
-  UnauthorizedError,
+  null,
   {
     order: Order
   }
