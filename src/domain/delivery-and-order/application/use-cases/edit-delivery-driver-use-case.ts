@@ -2,14 +2,11 @@ import { Injectable } from "@nestjs/common"
 
 import { Either, left, right } from "@/core/either"
 
-import { NotAllowedError } from "@/core/errors/not-allowed-error"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 import { DeliveryDriver } from "@/domain/delivery-and-order/enterprise/entities/delivery-driver"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
-
-import { AlreadyExistsError } from "./errors/already-exists-error"
 
 interface EditDeliveryDriverUseCaseRequest {
   deliveryDriverId: string
@@ -18,7 +15,7 @@ interface EditDeliveryDriverUseCaseRequest {
 }
 
 type EditDeliveryDriverUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowedError | AlreadyExistsError,
+  ResourceNotFoundError,
   {
     deliveryDriver: DeliveryDriver
   }
@@ -40,27 +37,12 @@ export class EditDeliveryDriverUseCase {
       return left(new ResourceNotFoundError())
     }
 
-    if (cpf) {
-      const newCpf = Cpf.create(cpf)
+    deliveryDriver.update({
+      name,
+      cpf: cpf ? Cpf.create(cpf) : undefined,
+    })
 
-      const deliveryDriverWithTheSameCpf =
-        await this.deliveryDriversRepository.findByCpf(newCpf.raw)
-
-      if (
-        deliveryDriverWithTheSameCpf &&
-        !deliveryDriverWithTheSameCpf.id.equals(deliveryDriver.id)
-      ) {
-        return left(new AlreadyExistsError("Delivery Driver", cpf))
-      }
-
-      deliveryDriver.cpf = newCpf
-    }
-
-    if (name) {
-      deliveryDriver.name = name
-    }
-
-    await this.deliveryDriversRepository.update(deliveryDriver)
+    await this.deliveryDriversRepository.save(deliveryDriver)
 
     return right({ deliveryDriver })
   }

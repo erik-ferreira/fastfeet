@@ -20,7 +20,7 @@ export class PrismaDeliveryDriverRepository implements DeliveryDriversRepository
     await this.prisma.user.create({ data })
   }
 
-  async update(deliveryDriver: DeliveryDriver): Promise<void> {
+  async save(deliveryDriver: DeliveryDriver): Promise<void> {
     const data = PrismaDeliveryDriverMapper.toPrisma(deliveryDriver)
 
     await this.prisma.user.update({

@@ -15,6 +15,11 @@ export interface UserProps {
   updatedAt?: Date | null
 }
 
+interface UserUpdateProps {
+  name?: string
+  cpf?: Cpf
+}
+
 export abstract class User<
   Props extends UserProps = UserProps,
 > extends Entity<Props> {
@@ -54,5 +59,11 @@ export abstract class User<
 
   private touch() {
     this.props.updatedAt = new Date()
+  }
+
+  update({ name, cpf }: UserUpdateProps) {
+    this.props.cpf = cpf ?? this.props.cpf
+    this.props.name = name ?? this.props.name
+    this.touch()
   }
 }
