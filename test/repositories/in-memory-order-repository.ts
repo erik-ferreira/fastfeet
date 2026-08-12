@@ -27,7 +27,7 @@ export class InMemoryRecipientRepository implements OrderRepository {
     this.items.push(order)
   }
 
-  async update(order: Order): Promise<void> {
+  async save(order: Order): Promise<void> {
     const itemIndex = this.items.findIndex((item) => item.id === order.id)
 
     if (itemIndex >= 0) {

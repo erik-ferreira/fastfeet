@@ -20,7 +20,7 @@ export class PrismaOrderRepository implements OrderRepository {
     await this.prisma.order.create({ data })
   }
 
-  async update(order: Order): Promise<void> {
+  async save(order: Order): Promise<void> {
     const data = PrismaOrderMapper.toPrisma(order)
 
     await this.prisma.order.update({

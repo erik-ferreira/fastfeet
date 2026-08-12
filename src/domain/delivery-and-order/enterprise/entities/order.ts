@@ -29,6 +29,13 @@ export type OrderCreateProps = Optional<
   "status" | "createdAt" | "updatedAt"
 >
 
+interface OrderUpdateProps {
+  title: string
+  latitude: number
+  longitude: number
+  recipientId: UniqueEntityID
+}
+
 export class Order extends Entity<OrderProps> {
   get title() {
     return this.props.title
@@ -157,5 +164,19 @@ export class Order extends Entity<OrderProps> {
     )
 
     return order
+  }
+
+  update({ title, latitude, longitude, recipientId }: OrderUpdateProps) {
+    if (this.props.status === "DELIVERED" || this.props.status === "RETURNED") {
+      throw new Error(
+        "Cannot edit orders that are already delivered or returned.",
+      )
+    }
+
+    this.props.title = title
+    this.props.latitude = latitude
+    this.props.longitude = longitude
+    this.props.recipientId = recipientId
+    this.touch()
   }
 }
