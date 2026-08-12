@@ -19,6 +19,13 @@ export type RecipientCreateProps = Optional<
   "createdAt" | "updatedAt"
 >
 
+interface RecipientUpdateProps {
+  name?: string
+  cpf?: Cpf
+  latitude?: number
+  longitude?: number
+}
+
 export class Recipient extends Entity<RecipientProps> {
   get name() {
     return this.props.name
@@ -79,5 +86,13 @@ export class Recipient extends Entity<RecipientProps> {
     )
 
     return recipient
+  }
+
+  update({ name, cpf, latitude, longitude }: RecipientUpdateProps) {
+    this.props.cpf = cpf ?? this.props.cpf
+    this.props.name = name ?? this.props.name
+    this.props.latitude = latitude ?? this.props.latitude
+    this.props.longitude = longitude ?? this.props.longitude
+    this.touch()
   }
 }

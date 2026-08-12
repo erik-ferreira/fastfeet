@@ -32,7 +32,7 @@ export class InMemoryRecipientRepository implements RecipientRepository {
     this.items.push(recipient)
   }
 
-  async update(recipient: Recipient) {
+  async save(recipient: Recipient) {
     const itemIndex = this.items.findIndex((item) => item.id === recipient.id)
 
     if (itemIndex >= 0) {

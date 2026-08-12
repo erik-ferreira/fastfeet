@@ -20,7 +20,7 @@ export class PrismaRecipientRepository implements RecipientRepository {
     await this.prisma.recipient.create({ data })
   }
 
-  async update(recipient: Recipient): Promise<void> {
+  async save(recipient: Recipient): Promise<void> {
     const data = PrismaRecipienteMapper.toPrisma(recipient)
 
     await this.prisma.recipient.update({
