@@ -7,6 +7,7 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 import { Recipient } from "@/domain/delivery-and-order/enterprise/entities/recipient"
 import { RecipientRepository } from "@/domain/delivery-and-order/application/repositories/recipient-repository"
+import { AlreadyExistsError } from "./errors/already-exists-error"
 
 interface EditRecipientUseCaseRequest {
   recipientId: string
@@ -17,7 +18,7 @@ interface EditRecipientUseCaseRequest {
 }
 
 type EditRecipientUseCaseResponse = Either<
-  ResourceNotFoundError,
+  ResourceNotFoundError | AlreadyExistsError,
   {
     recipient: Recipient
   }
@@ -38,6 +39,17 @@ export class EditRecipientUseCase {
 
     if (!recipient) {
       return left(new ResourceNotFoundError())
+    }
+
+    if (cpf) {
+      const recipientWithSameCpf = await this.recipientRepository.findByCpf(cpf)
+
+      const isCpfBelongsToAnotherRecipient =
+        recipientWithSameCpf && !recipientWithSameCpf.id.equals(recipient.id)
+
+      if (isCpfBelongsToAnotherRecipient) {
+        return left(new AlreadyExistsError("Recipient", cpf))
+      }
     }
 
     recipient.update({
