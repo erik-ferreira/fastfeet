@@ -5,7 +5,7 @@ import { NearbyParams } from "@/core/repositories/nearby-params"
 import { PaginationParams } from "@/core/repositories/pagination-params"
 import { getDistanceBetweenCoordinates } from "@/core/utils/get-distance-between-coordinates"
 
-export class InMemoryRecipientRepository implements OrderRepository {
+export class InMemoryOrderRepository implements OrderRepository {
   public items: Order[] = []
 
   async findById(id: string): Promise<Order | null> {
