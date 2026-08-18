@@ -55,9 +55,10 @@ enum OrderStatus {
 }
 
 model Attachment {
-  id    String @id @default(uuid())
-  title String
-  url   String
+  id      String  @id @default(uuid())
+  title   String
+  url     String
+  orderId String? @unique
 
   order Order?
 

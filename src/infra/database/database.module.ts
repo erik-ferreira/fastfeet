@@ -6,6 +6,7 @@ import { AdminRepository } from "@/domain/delivery-and-order/application/reposit
 import { OrderRepository } from "@/domain/delivery-and-order/application/repositories/order-repository"
 import { RecipientRepository } from "@/domain/delivery-and-order/application/repositories/recipient-repository"
 import { AttachmentRepository } from "@/domain/delivery-and-order/application/repositories/attachment-repository"
+import { OrderAttachmentRepository } from "@/domain/delivery-and-order/application/repositories/order-attachment-repository"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
 
 import { PrismaAdminRepository } from "./prisma/repositories/prisma-admin-repository"
@@ -13,6 +14,7 @@ import { PrismaOrderRepository } from "./prisma/repositories/prisma-order-reposi
 import { PrismaRecipientRepository } from "./prisma/repositories/prisma-recipient-repository"
 import { PrismaAttachmentRepository } from "./prisma/repositories/prisma-attachments-repository"
 import { PrismaDeliveryDriverRepository } from "./prisma/repositories/prisma-delivery-driver-repository"
+import { PrismaOrderAttachmentRepository } from "./prisma/repositories/prisma-order-attachment-repository"
 
 @Module({
   providers: [
@@ -34,7 +36,19 @@ import { PrismaDeliveryDriverRepository } from "./prisma/repositories/prisma-del
       provide: AttachmentRepository,
       useClass: PrismaAttachmentRepository,
     },
+    {
+      provide: OrderAttachmentRepository,
+      useClass: PrismaOrderAttachmentRepository,
+    },
   ],
-  exports: [PrismaService, AdminRepository],
+  exports: [
+    PrismaService,
+    AdminRepository,
+    DeliveryDriversRepository,
+    RecipientRepository,
+    OrderRepository,
+    AttachmentRepository,
+    OrderAttachmentRepository,
+  ],
 })
 export class DatabaseModule {}
