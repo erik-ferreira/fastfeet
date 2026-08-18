@@ -106,7 +106,7 @@ export class Order extends Entity<OrderProps> {
   /**
    * The order will be picked up by a delivery driver
    */
-  withdraw(deliveryDriverId: UniqueEntityID) {
+  withdrawn(deliveryDriverId: UniqueEntityID) {
     if (this.props.status !== "WAITING" && this.props.status !== "PENDING") {
       throw new Error("Only pending or waiting orders can be withdrawn.")
     }

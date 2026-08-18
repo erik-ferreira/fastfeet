@@ -1,12 +1,11 @@
 import { InMemoryOrderRepository } from "@/test/repositories/in-memory-order-repository"
 
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { makeOrder } from "@/test/factories/make-order"
-import { makeRecipient } from "@/test/factories/make-recipient"
 
 import { MarkOrderAsWaitingUseCase } from "./mark-order-as-waiting-use-case"
-import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let sut: MarkOrderAsWaitingUseCase
