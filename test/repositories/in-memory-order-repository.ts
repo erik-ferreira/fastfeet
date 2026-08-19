@@ -50,7 +50,7 @@ export class InMemoryOrderRepository implements OrderRepository {
     longitude,
   }: NearbyParams): Promise<Order[]> {
     const orders = this.items
-      .filter((order) => {
+      .filter((order, index) => {
         const isAvailable =
           order.status === "PENDING" || order.status === "WAITING"
 

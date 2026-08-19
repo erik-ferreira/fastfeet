@@ -5,6 +5,7 @@ import { Either, left, right } from "@/core/either"
 import { Order } from "@/domain/delivery-and-order/enterprise/entities/order"
 import { OrderRepository } from "@/domain/delivery-and-order/application/repositories/order-repository"
 
+import { NotAllowedError } from "@/core/errors/not-allowed-error"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 interface ReturnOrderUseCaseRequest {
@@ -29,6 +30,10 @@ export class ReturnOrderUseCase {
 
     if (!order) {
       return left(new ResourceNotFoundError())
+    }
+
+    if (order.status !== "WITHDRAWN") {
+      return left(new NotAllowedError())
     }
 
     order.returnOrder()

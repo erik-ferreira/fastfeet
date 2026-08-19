@@ -23,7 +23,7 @@ describe("Withdrawn Order", () => {
     )
   })
 
-  it("should be able to mark order as withdrawn and assign it to a delivery driver", async () => {
+  it("should be able to mark order as WITHDRAWN and assign it to a delivery driver", async () => {
     const deliveryDriver = makeDeliveryDriver(
       {},
       new UniqueEntityID("driver-1"),
@@ -36,7 +36,6 @@ describe("Withdrawn Order", () => {
       },
       new UniqueEntityID("1"),
     )
-
     await inMemoryOrderRepository.create(order)
 
     expect(order).toEqual(
@@ -59,7 +58,7 @@ describe("Withdrawn Order", () => {
     }
   })
 
-  it("should not be able to mark order as withdrawn with delivery driver not found", async () => {
+  it("should not be able to mark order as WITHDRAWN with delivery driver not found", async () => {
     const order = makeOrder({}, new UniqueEntityID("1"))
 
     await inMemoryOrderRepository.create(order)
@@ -73,7 +72,7 @@ describe("Withdrawn Order", () => {
     expect(result.value).toBeInstanceOf(ResourceNotFoundError)
   })
 
-  it("should not be able to mark order as withdrawn with order not found", async () => {
+  it("should not be able to mark order as WITHDRAWN with order not found", async () => {
     const deliveryDriver = makeDeliveryDriver(
       {},
       new UniqueEntityID("driver-1"),
