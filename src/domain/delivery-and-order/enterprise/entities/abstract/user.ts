@@ -75,17 +75,4 @@ export abstract class User<
     this.props.name = name ?? this.props.name
     this.touch()
   }
-
-  create(props: UserCreatedProps, id?: UniqueEntityID) {
-    const user = new User(
-      {
-        ...props,
-        createdAt: props.createdAt ?? new Date(),
-        updatedAt: props.updatedAt ?? null,
-      },
-      id,
-    )
-
-    return user
-  }
 }
