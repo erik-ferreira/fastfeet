@@ -4,7 +4,7 @@ import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-
 
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
-import { FetchDeliveryDriversUseCase } from "./fetch-delivery-drivers-use-case"
+import { FetchDeliveryDriversUseCase } from "./fetch-delivery-drivers"
 
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository
 let sut: FetchDeliveryDriversUseCase

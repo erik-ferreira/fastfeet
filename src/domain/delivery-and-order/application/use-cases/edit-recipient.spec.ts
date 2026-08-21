@@ -9,7 +9,7 @@ import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objec
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-cases/errors/already-exists-error"
 
-import { EditRecipientUseCase } from "./edit-recipient-use-case"
+import { EditRecipientUseCase } from "./edit-recipient"
 
 let inMemoryRecipientRepository: InMemoryRecipientRepository
 let sut: EditRecipientUseCase

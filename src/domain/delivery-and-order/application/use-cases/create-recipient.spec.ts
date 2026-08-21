@@ -5,7 +5,7 @@ import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-
 
 import { makeRecipient } from "@/test/factories/make-recipient"
 
-import { CreateRecipientUseCase } from "./create-recipient-use-case"
+import { CreateRecipientUseCase } from "./create-recipient"
 
 let inMemoryRecipientRepository: InMemoryRecipientRepository
 let sut: CreateRecipientUseCase

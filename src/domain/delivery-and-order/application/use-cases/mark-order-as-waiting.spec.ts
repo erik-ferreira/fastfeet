@@ -5,7 +5,7 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { makeOrder } from "@/test/factories/make-order"
 
-import { MarkOrderAsWaitingUseCase } from "./mark-order-as-waiting-use-case"
+import { MarkOrderAsWaitingUseCase } from "./mark-order-as-waiting"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let sut: MarkOrderAsWaitingUseCase

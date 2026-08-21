@@ -6,7 +6,7 @@ import { makeDeliveryDriver } from "@/test/factories/make-delivery-driver"
 
 import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-delivery-driver-repository"
 
-import { GetDeliveryDriverByCpfUseCase } from "./get-delivery-driver-by-cpf-use-case"
+import { GetDeliveryDriverByCpfUseCase } from "./get-delivery-driver-by-cpf"
 
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository
 let sut: GetDeliveryDriverByCpfUseCase

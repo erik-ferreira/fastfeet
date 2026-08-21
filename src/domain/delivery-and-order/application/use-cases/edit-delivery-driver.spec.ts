@@ -7,7 +7,7 @@ import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-cases/errors/already-exists-error"
 
-import { EditDeliveryDriverUseCase } from "./edit-delivery-driver-use-case"
+import { EditDeliveryDriverUseCase } from "./edit-delivery-driver"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository

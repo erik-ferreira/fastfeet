@@ -11,7 +11,7 @@ import { InMemoryOrderAttachmentRepository } from "@/test/repositories/in-memory
 import { NotAllowedError } from "@/core/errors/not-allowed-error"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
-import { DeliverOrderUseCase } from "./deliver-order-use-case"
+import { DeliverOrderUseCase } from "./deliver-order"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository

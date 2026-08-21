@@ -6,7 +6,7 @@ import { makeDeliveryDriver } from "@/test/factories/make-delivery-driver"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
-import { FetchOrdersDeliveryDriverUseCase } from "./fetch-orders-delivery-driver-use-case"
+import { FetchOrdersDeliveryDriverUseCase } from "./fetch-orders-delivery-driver"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository

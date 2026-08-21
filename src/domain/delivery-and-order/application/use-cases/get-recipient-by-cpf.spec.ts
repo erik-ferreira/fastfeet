@@ -6,7 +6,7 @@ import { makeRecipient } from "@/test/factories/make-recipient"
 
 import { InMemoryRecipientRepository } from "@/test/repositories/in-memory-recipient-repository"
 
-import { GetRecipientByCpfUseCase } from "./get-recipient-by-cpf-use-case"
+import { GetRecipientByCpfUseCase } from "./get-recipient-by-cpf"
 
 let inMemoryRecipientRepository: InMemoryRecipientRepository
 let sut: GetRecipientByCpfUseCase

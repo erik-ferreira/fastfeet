@@ -2,7 +2,7 @@ import { InMemoryOrderRepository } from "@/test/repositories/in-memory-order-rep
 
 import { makeOrder } from "@/test/factories/make-order"
 
-import { FetchNearbyOrdersTheDeliveryDriverUseCase } from "./fetch-nearby-orders-the-delivery-driver-use-case"
+import { FetchNearbyOrdersTheDeliveryDriverUseCase } from "./fetch-nearby-orders-the-delivery-driver"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let sut: FetchNearbyOrdersTheDeliveryDriverUseCase

@@ -7,7 +7,7 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 import { makeOrder } from "@/test/factories/make-order"
 import { makeDeliveryDriver } from "@/test/factories/make-delivery-driver"
 
-import { WithdrawnOrderUseCase } from "./withdrawn-order-use-case"
+import { WithdrawnOrderUseCase } from "./withdrawn-order"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository

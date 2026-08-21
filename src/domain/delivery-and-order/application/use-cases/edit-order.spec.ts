@@ -7,7 +7,7 @@ import { InMemoryOrderRepository } from "@/test/repositories/in-memory-order-rep
 import { NotAllowedError } from "@/core/errors/not-allowed-error"
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
-import { EditOrderUseCase } from "./edit-order-use-case"
+import { EditOrderUseCase } from "./edit-order"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let sut: EditOrderUseCase

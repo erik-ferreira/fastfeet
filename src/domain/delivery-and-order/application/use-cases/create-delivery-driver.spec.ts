@@ -6,7 +6,7 @@ import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-cases/errors/already-exists-error"
 
-import { CreateDeliveryDriverUseCase } from "./create-delivery-driver-use-case"
+import { CreateDeliveryDriverUseCase } from "./create-delivery-driver"
 
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository
 let fakeHasher: FakeHasher

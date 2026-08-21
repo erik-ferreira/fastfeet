@@ -6,7 +6,7 @@ import { InMemoryRecipientRepository } from "@/test/repositories/in-memory-recip
 
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
-import { DeleteRecipientUseCase } from "./delete-recipient-use-case"
+import { DeleteRecipientUseCase } from "./delete-recipient"
 
 let inMemoryRecipientRepository: InMemoryRecipientRepository
 let sut: DeleteRecipientUseCase

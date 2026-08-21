@@ -6,7 +6,7 @@ import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-
 
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
-import { DeleteDeliveryDriverUseCase } from "./delete-delivery-driver-use-case"
+import { DeleteDeliveryDriverUseCase } from "./delete-delivery-driver"
 
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository
 let sut: DeleteDeliveryDriverUseCase

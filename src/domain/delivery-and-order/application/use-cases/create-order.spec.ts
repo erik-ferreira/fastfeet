@@ -2,7 +2,7 @@ import { InMemoryOrderRepository } from "@/test/repositories/in-memory-order-rep
 
 import { makeRecipient } from "@/test/factories/make-recipient"
 
-import { CreateOrderUseCase } from "./create-order-use-case"
+import { CreateOrderUseCase } from "./create-order"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let sut: CreateOrderUseCase

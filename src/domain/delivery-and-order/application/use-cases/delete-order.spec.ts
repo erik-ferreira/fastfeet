@@ -4,7 +4,7 @@ import { makeOrder } from "@/test/factories/make-order"
 
 import { InMemoryOrderRepository } from "@/test/repositories/in-memory-order-repository"
 
-import { DeleteOrderUseCase } from "./delete-order-use-case"
+import { DeleteOrderUseCase } from "./delete-order"
 
 let inMemoryOrderRepository: InMemoryOrderRepository
 let sut: DeleteOrderUseCase

@@ -4,7 +4,7 @@ import { InMemoryRecipientRepository } from "@/test/repositories/in-memory-recip
 
 import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
 
-import { FetchRecipientsUseCase } from "./fetch-recipients-use-case"
+import { FetchRecipientsUseCase } from "./fetch-recipients"
 
 let inMemoryRecipientRepository: InMemoryRecipientRepository
 let sut: FetchRecipientsUseCase
