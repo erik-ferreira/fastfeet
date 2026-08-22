@@ -19,13 +19,14 @@ enum UserRole {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  name      String
-  cpf       String    @unique @db.Char(11)
-  password  String
-  role      UserRole  @default(DELIVERY_DRIVER)
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
+  id            String         @id @default(uuid())
+  name          String
+  cpf           String         @unique @db.Char(11)
+  password      String
+  role          UserRole       @default(DELIVERY_DRIVER)
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime?      @updatedAt @map("updated_at")
+  notifications Notification[]
 
   orders Order[]
 
@@ -89,4 +90,17 @@ model Order {
   attachment     Attachment? @relation(fields: [attachmentId], references: [id])
 
   @@map("orders")
+}
+
+model Notification {
+  id          String    @id @default(uuid())
+  recipientId String    @map("recipient_id")
+  title       String
+  content     String
+  readAt      DateTime? @map("read_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  recipient User @relation(fields: [recipientId], references: [id])
+
+  @@map("notifications")
 }
