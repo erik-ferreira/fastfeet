@@ -12,12 +12,12 @@ export class OnOrderWaitingForPickup implements EventHandler {
 
   setupSubscriptions(): void {
     DomainEvents.register(
-      this.sendOnOrderWaitingNotification.bind(this),
+      this.sendOnOrderWaitingForPickupNotification.bind(this),
       OrderWaitingForPickupEvent.name,
     )
   }
 
-  private async sendOnOrderWaitingNotification({
+  private async sendOnOrderWaitingForPickupNotification({
     order,
   }: OrderWaitingForPickupEvent) {
     await this.sendNotification.execute({

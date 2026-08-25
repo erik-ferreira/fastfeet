@@ -5,7 +5,7 @@ import { OrderDeliveredToRecipientEvent } from "@/domain/delivery-and-order/ente
 
 import { SendNotificationUseCase } from "../use-cases/send-notification"
 
-export class OnOrderWaitingForPickup implements EventHandler {
+export class OnOrderDeliveredToRecipient implements EventHandler {
   constructor(private sendNotification: SendNotificationUseCase) {
     this.setupSubscriptions()
   }

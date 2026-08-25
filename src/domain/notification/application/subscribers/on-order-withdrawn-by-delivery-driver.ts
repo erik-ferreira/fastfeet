@@ -5,19 +5,19 @@ import { OrderWithdrawnByDeliveryDriverEvent } from "@/domain/delivery-and-order
 
 import { SendNotificationUseCase } from "../use-cases/send-notification"
 
-export class OnOrderWaitingForPickup implements EventHandler {
+export class OnOrderWithdrawnByDeliveryDriver implements EventHandler {
   constructor(private sendNotification: SendNotificationUseCase) {
     this.setupSubscriptions()
   }
 
   setupSubscriptions(): void {
     DomainEvents.register(
-      this.sendOnOrderWaitingNotification.bind(this),
+      this.sendOnOrderWithdrawnByDeliveryDriverNotification.bind(this),
       OrderWithdrawnByDeliveryDriverEvent.name,
     )
   }
 
-  private async sendOnOrderWaitingNotification({
+  private async sendOnOrderWithdrawnByDeliveryDriverNotification({
     order,
   }: OrderWithdrawnByDeliveryDriverEvent) {
     await this.sendNotification.execute({
