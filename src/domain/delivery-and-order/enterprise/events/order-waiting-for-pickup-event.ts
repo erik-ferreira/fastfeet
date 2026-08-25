@@ -1,0 +1,22 @@
+import { DomainEvent } from "@/core/events/domain-event"
+import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+
+import { Order } from "@/domain/delivery-and-order/enterprise/entities/order"
+
+export class OrderWaitingForPickupEvent implements DomainEvent {
+  public occurredAt: Date
+  private _order: Order
+
+  constructor(order: Order) {
+    this._order = order
+    this.occurredAt = new Date()
+  }
+
+  get order(): Order {
+    return this._order
+  }
+
+  getAggregateId(): UniqueEntityID {
+    return this.order.id
+  }
+}

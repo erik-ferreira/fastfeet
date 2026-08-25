@@ -1,9 +1,9 @@
+import { Injectable } from "@nestjs/common"
 import { Either, right } from "@/core/either"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
 import { Notification } from "@/domain/notification/enterprise/entities/notification"
 import { NotificationsRepository } from "@/domain/notification/application/repositories/notification-repository"
-import { Injectable } from "@nestjs/common"
 
 export interface SendNotificationUseCaseRequest {
   recipientId: string

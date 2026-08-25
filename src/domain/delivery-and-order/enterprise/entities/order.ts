@@ -1,6 +1,10 @@
-import { Entity } from "@/core/entities/entity"
+import { AggregateRoot } from "@/core/entities/aggregate-root"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+
 import { Optional } from "@/core/types/optional"
+
+import { OrderCreatedEvent } from "@/domain/delivery-and-order/enterprise/events/order-created-event"
+import { OrderWaitingForPickupEvent } from "@/domain/delivery-and-order/enterprise/events/order-waiting-for-pickup-event"
 
 export type OrderStatus =
   "PENDING" | "WAITING" | "WITHDRAWN" | "DELIVERED" | "RETURNED"
@@ -36,7 +40,7 @@ interface OrderUpdateProps {
   recipientId?: UniqueEntityID
 }
 
-export class Order extends Entity<OrderProps> {
+export class Order extends AggregateRoot<OrderProps> {
   get title() {
     return this.props.title
   }
@@ -100,6 +104,9 @@ export class Order extends Entity<OrderProps> {
   markAsWaiting() {
     this.props.status = "WAITING"
     this.props.postedAt = new Date()
+
+    this.addDomainEvent(new OrderWaitingForPickupEvent(this))
+
     this.touch()
   }
 
@@ -162,6 +169,8 @@ export class Order extends Entity<OrderProps> {
       },
       id,
     )
+
+    order.addDomainEvent(new OrderCreatedEvent(order))
 
     return order
   }
