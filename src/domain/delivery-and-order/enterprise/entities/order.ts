@@ -3,8 +3,10 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
 import { Optional } from "@/core/types/optional"
 
-import { OrderCreatedEvent } from "@/domain/delivery-and-order/enterprise/events/order-created-event"
+import { OrderDeliveredToRecipientEvent } from "@/domain/delivery-and-order/enterprise/events/order-delivered-to-recipient-event"
+import { OrderReturnedEvent } from "@/domain/delivery-and-order/enterprise/events/order-returned-event"
 import { OrderWaitingForPickupEvent } from "@/domain/delivery-and-order/enterprise/events/order-waiting-for-pickup-event"
+import { OrderWithdrawnByDeliveryDriverEvent } from "@/domain/delivery-and-order/enterprise/events/order-withdrawn-by-delivery-driver-event"
 
 export type OrderStatus =
   "PENDING" | "WAITING" | "WITHDRAWN" | "DELIVERED" | "RETURNED"
@@ -121,6 +123,9 @@ export class Order extends AggregateRoot<OrderProps> {
     this.props.deliveryDriverId = deliveryDriverId
     this.props.status = "WITHDRAWN"
     this.props.withdrawnAt = new Date()
+
+    this.addDomainEvent(new OrderWithdrawnByDeliveryDriverEvent(this))
+
     this.touch()
   }
 
@@ -139,6 +144,9 @@ export class Order extends AggregateRoot<OrderProps> {
     this.props.attachmentId = attachmentId
     this.props.status = "DELIVERED"
     this.props.deliveredAt = new Date()
+
+    this.addDomainEvent(new OrderDeliveredToRecipientEvent(this))
+
     this.touch()
   }
 
@@ -152,6 +160,9 @@ export class Order extends AggregateRoot<OrderProps> {
 
     this.props.status = "RETURNED"
     this.props.returnedAt = new Date()
+
+    this.addDomainEvent(new OrderReturnedEvent(this))
+
     this.touch()
   }
 
@@ -169,8 +180,6 @@ export class Order extends AggregateRoot<OrderProps> {
       },
       id,
     )
-
-    order.addDomainEvent(new OrderCreatedEvent(order))
 
     return order
   }

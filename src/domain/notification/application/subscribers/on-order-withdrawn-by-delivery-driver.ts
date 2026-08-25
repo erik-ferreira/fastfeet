@@ -1,7 +1,7 @@
 import { DomainEvents } from "@/core/events/domain-events"
 import { EventHandler } from "@/core/events/event-handler"
 
-import { OrderWaitingForPickupEvent } from "@/domain/delivery-and-order/enterprise/events/order-waiting-for-pickup-event"
+import { OrderWithdrawnByDeliveryDriverEvent } from "@/domain/delivery-and-order/enterprise/events/order-withdrawn-by-delivery-driver-event"
 
 import { SendNotificationUseCase } from "../use-cases/send-notification"
 
@@ -13,17 +13,17 @@ export class OnOrderWaitingForPickup implements EventHandler {
   setupSubscriptions(): void {
     DomainEvents.register(
       this.sendOnOrderWaitingNotification.bind(this),
-      OrderWaitingForPickupEvent.name,
+      OrderWithdrawnByDeliveryDriverEvent.name,
     )
   }
 
   private async sendOnOrderWaitingNotification({
     order,
-  }: OrderWaitingForPickupEvent) {
+  }: OrderWithdrawnByDeliveryDriverEvent) {
     await this.sendNotification.execute({
       recipientId: order.recipientId.toString(),
-      title: `Seu pedido "${order.title}" está aguardando retirada`,
-      content: `Sua encomenda já está pronta para ser retirada pelo entregador.`,
+      title: `O pedido "${order.title}" foi retirado pelo entregador`,
+      content: `O entregador retirou seu pedido e ja está a caminho.`,
     })
   }
 }
