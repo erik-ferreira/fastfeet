@@ -9,12 +9,14 @@ import { UserRepository } from "@/domain/delivery-and-order/application/reposito
 import { AttachmentRepository } from "@/domain/delivery-and-order/application/repositories/attachment-repository"
 import { OrderAttachmentRepository } from "@/domain/delivery-and-order/application/repositories/order-attachment-repository"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
+import { NotificationsRepository } from "@/domain/notification/application/repositories/notification-repository"
 
 import { PrismaAdminRepository } from "./prisma/repositories/prisma-admin-repository"
 import { PrismaOrderRepository } from "./prisma/repositories/prisma-order-repository"
 import { PrismaRecipientRepository } from "./prisma/repositories/prisma-recipient-repository"
 import { PrismaUserRepository } from "./prisma/repositories/prisma-user-repository"
 import { PrismaAttachmentRepository } from "./prisma/repositories/prisma-attachments-repository"
+import { PrismaNotificationsRepository } from "./prisma/repositories/prisma-notifications-repository"
 import { PrismaDeliveryDriverRepository } from "./prisma/repositories/prisma-delivery-driver-repository"
 import { PrismaOrderAttachmentRepository } from "./prisma/repositories/prisma-order-attachment-repository"
 
@@ -46,6 +48,10 @@ import { PrismaOrderAttachmentRepository } from "./prisma/repositories/prisma-or
       provide: UserRepository,
       useClass: PrismaUserRepository,
     },
+    {
+      provide: NotificationsRepository,
+      useClass: PrismaNotificationsRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -55,6 +61,8 @@ import { PrismaOrderAttachmentRepository } from "./prisma/repositories/prisma-or
     OrderRepository,
     AttachmentRepository,
     OrderAttachmentRepository,
+    UserRepository,
+    NotificationsRepository,
   ],
 })
 export class DatabaseModule {}

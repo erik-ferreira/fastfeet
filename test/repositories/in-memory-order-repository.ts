@@ -1,3 +1,4 @@
+import { DomainEvents } from "@/core/events/domain-events"
 import { Order } from "@/domain/delivery-and-order/enterprise/entities/order"
 import { OrderRepository } from "@/domain/delivery-and-order/application/repositories/order-repository"
 
@@ -28,6 +29,8 @@ export class InMemoryOrderRepository implements OrderRepository {
 
   async create(order: Order): Promise<void> {
     this.items.push(order)
+
+    DomainEvents.dispatchEventsForAggregate(order.id)
   }
 
   async save(order: Order): Promise<void> {
@@ -36,6 +39,8 @@ export class InMemoryOrderRepository implements OrderRepository {
     if (itemIndex >= 0) {
       this.items[itemIndex] = order
     }
+
+    DomainEvents.dispatchEventsForAggregate(order.id)
   }
 
   async delete(order: Order): Promise<void> {
