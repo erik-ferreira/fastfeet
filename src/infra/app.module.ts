@@ -11,6 +11,7 @@ import { EventsModule } from "@/infra/events/events.module"
   imports: [
     ConfigModule.forRoot({
       validate: (env) => envSchema.parse(env),
+      isGlobal: true,
     }),
     AuthModule,
     EnvModule,
