@@ -4,9 +4,8 @@ import { makeDeliveryDriver } from "@/test/factories/make-delivery-driver"
 
 import { InMemoryDeliveryDriverRepository } from "@/test/repositories/in-memory-delivery-driver-repository"
 
-import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objects/cpf"
-
 import { DeleteDeliveryDriverUseCase } from "./delete-delivery-driver"
+import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
 let inMemoryDeliveryDriverRepository: InMemoryDeliveryDriverRepository
 let sut: DeleteDeliveryDriverUseCase
@@ -18,14 +17,12 @@ describe("Delete Delivery Driver", () => {
   })
 
   it("should be able to delete a delivery driver", async () => {
-    const deliveryDriver = makeDeliveryDriver({
-      cpf: Cpf.create("10000000000"),
-    })
+    const deliveryDriver = makeDeliveryDriver({}, new UniqueEntityID("1"))
 
     await inMemoryDeliveryDriverRepository.create(deliveryDriver)
 
     await sut.execute({
-      cpf: "10000000000",
+      id: "1",
     })
 
     expect(inMemoryDeliveryDriverRepository.items).toHaveLength(0)
@@ -33,7 +30,7 @@ describe("Delete Delivery Driver", () => {
 
   it("should not be able to delete a delivery driver not found", async () => {
     const result = await sut.execute({
-      cpf: "10000000000",
+      id: "1",
     })
 
     expect(result.isLeft()).toBe(true)

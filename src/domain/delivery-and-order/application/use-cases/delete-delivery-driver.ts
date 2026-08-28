@@ -7,7 +7,7 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 import { DeliveryDriversRepository } from "@/domain/delivery-and-order/application/repositories/delivery-drivers-repository"
 
 interface DeleteDeliveryDriverUseCaseRequest {
-  cpf: string
+  id: string
 }
 
 type DeleteDeliveryDriverUseCaseResponse = Either<ResourceNotFoundError, null>
@@ -17,9 +17,9 @@ export class DeleteDeliveryDriverUseCase {
   constructor(private deliveryDriversRepository: DeliveryDriversRepository) {}
 
   async execute({
-    cpf,
+    id,
   }: DeleteDeliveryDriverUseCaseRequest): Promise<DeleteDeliveryDriverUseCaseResponse> {
-    const deliveryDriver = await this.deliveryDriversRepository.findByCpf(cpf)
+    const deliveryDriver = await this.deliveryDriversRepository.findById(id)
 
     if (!deliveryDriver) {
       return left(new ResourceNotFoundError())
