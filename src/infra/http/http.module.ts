@@ -6,17 +6,17 @@ import { CryptographyModule } from "@/infra/cryptography/cryptography.module"
 import { AuthenticateController } from "@/infra/http/controllers/auth/authenticate.controller"
 import { ChangePasswordController } from "@/infra/http/controllers/auth/change-password.controller"
 
-import { FetchDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/fetch.controller"
-import { GetOneDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/get-one.controller"
-import { CreateDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/create.controller"
-import { EditDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/edit.controller"
-import { DeleteDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/delete.controller"
+import { FetchDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/fetch-delivery-driver.controller"
+import { GetOneDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/get-one-delivery-driver.controller"
+import { CreateDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/create-delivery-driver.controller"
+import { EditDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/edit-delivery-driver.controller"
+import { DeleteDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/delete-delivery-driver.controller"
 
-import { FetchRecipientController } from "@/infra/http/controllers/recipient/fetch.controller"
-import { GetOneRecipientController } from "@/infra/http/controllers/recipient/get-one.controller"
-import { CreateRecipientController } from "@/infra/http/controllers/recipient/create.controller"
-import { EditRecipientController } from "@/infra/http/controllers/recipient/edit.controller"
-import { DeleteRecipientController } from "@/infra/http/controllers/recipient/delete.controller"
+import { FetchRecipientController } from "@/infra/http/controllers/recipient/fetch-recipient.controller"
+import { GetOneRecipientController } from "@/infra/http/controllers/recipient/get-one-recipient.controller"
+import { CreateRecipientController } from "@/infra/http/controllers/recipient/create-recipient.controller"
+import { EditRecipientController } from "@/infra/http/controllers/recipient/edit-recipient.controller"
+import { DeleteRecipientController } from "@/infra/http/controllers/recipient/delete-recipient.controller"
 
 // --------------------- use cases ---------------------
 
