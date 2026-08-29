@@ -10,40 +10,44 @@ import {
   BadRequestException,
 } from "@nestjs/common"
 
-import { EditDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-delivery-driver"
+import { EditRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-recipient"
 
 import { Public } from "@/infra/auth/public"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
-const editDeliveryDriverSchema = z.object({
+const editRecipientSchema = z.object({
   name: z.string().optional(),
   cpf: z.string().optional(),
+  latitude: z.number().optional(),
+  longitude: z.number().optional(),
 })
 
-const bodyValidationPipe = new ZodValidationPipe(editDeliveryDriverSchema)
+const bodyValidationPipe = new ZodValidationPipe(editRecipientSchema)
 
-type EditDeliveryDriverBodySchema = z.infer<typeof editDeliveryDriverSchema>
+type EditRecipientBodySchema = z.infer<typeof editRecipientSchema>
 
-@Controller("/delivery-driver/:deliveryDriverId")
+@Controller("/recipient/:recipientId")
 @Public()
-export class EditDeliveryDriverController {
-  constructor(private editDeliveryDriver: EditDeliveryDriverUseCase) {}
+export class EditRecipientController {
+  constructor(private editRecipient: EditRecipientUseCase) {}
 
   @Put()
   @HttpCode(201)
   @UsePipes()
   async handle(
-    @Body(bodyValidationPipe) body: EditDeliveryDriverBodySchema,
-    @Param("deliveryDriverId") deliveryDriverId: string,
+    @Body(bodyValidationPipe) body: EditRecipientBodySchema,
+    @Param("recipientId") recipientId: string,
   ) {
-    const { name, cpf } = body
+    const { name, cpf, latitude, longitude } = body
 
-    const result = await this.editDeliveryDriver.execute({
-      deliveryDriverId,
+    const result = await this.editRecipient.execute({
+      recipientId,
       name,
       cpf,
+      latitude,
+      longitude,
     })
 
     if (result.isLeft()) {

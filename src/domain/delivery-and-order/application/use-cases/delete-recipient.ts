@@ -7,7 +7,7 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 import { RecipientRepository } from "@/domain/delivery-and-order/application/repositories/recipient-repository"
 
 interface DeleteRecipientUseCaseRequest {
-  cpf: string
+  id: string
 }
 
 type DeleteRecipientUseCaseResponse = Either<ResourceNotFoundError, null>
@@ -17,9 +17,9 @@ export class DeleteRecipientUseCase {
   constructor(private recipientRepository: RecipientRepository) {}
 
   async execute({
-    cpf,
+    id,
   }: DeleteRecipientUseCaseRequest): Promise<DeleteRecipientUseCaseResponse> {
-    const recipient = await this.recipientRepository.findByCpf(cpf)
+    const recipient = await this.recipientRepository.findById(id)
 
     if (!recipient) {
       return left(new ResourceNotFoundError())

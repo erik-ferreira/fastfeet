@@ -12,6 +12,14 @@ import { CreateDeliveryDriverController } from "@/infra/http/controllers/deliver
 import { EditDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/edit.controller"
 import { DeleteDeliveryDriverController } from "@/infra/http/controllers/delivery-driver/delete.controller"
 
+import { FetchRecipientController } from "@/infra/http/controllers/recipient/fetch.controller"
+import { GetOneRecipientController } from "@/infra/http/controllers/recipient/get-one.controller"
+import { CreateRecipientController } from "@/infra/http/controllers/recipient/create.controller"
+import { EditRecipientController } from "@/infra/http/controllers/recipient/edit.controller"
+import { DeleteRecipientController } from "@/infra/http/controllers/recipient/delete.controller"
+
+// --------------------- use cases ---------------------
+
 import { AuthenticateUserUseCase } from "@/domain/delivery-and-order/application/use-cases/authenticate-user"
 import { ChangeUserPasswordUserUseCase } from "@/domain/delivery-and-order/application/use-cases/change-user-password"
 
@@ -20,6 +28,12 @@ import { GetDeliveryDriverByCpfUseCase } from "@/domain/delivery-and-order/appli
 import { CreateDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/create-delivery-driver"
 import { EditDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-delivery-driver"
 import { DeleteDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/delete-delivery-driver"
+
+import { FetchRecipientsUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-recipients"
+import { GetRecipientByCpfUseCase } from "@/domain/delivery-and-order/application/use-cases/get-recipient-by-cpf"
+import { CreateRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/create-recipient"
+import { EditRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-recipient"
+import { DeleteRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/delete-recipient"
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -32,6 +46,12 @@ import { DeleteDeliveryDriverUseCase } from "@/domain/delivery-and-order/applica
     CreateDeliveryDriverController,
     EditDeliveryDriverController,
     DeleteDeliveryDriverController,
+
+    FetchRecipientController,
+    GetOneRecipientController,
+    CreateRecipientController,
+    EditRecipientController,
+    DeleteRecipientController,
   ],
   providers: [
     AuthenticateUserUseCase,
@@ -42,6 +62,12 @@ import { DeleteDeliveryDriverUseCase } from "@/domain/delivery-and-order/applica
     CreateDeliveryDriverUseCase,
     EditDeliveryDriverUseCase,
     DeleteDeliveryDriverUseCase,
+
+    FetchRecipientsUseCase,
+    GetRecipientByCpfUseCase,
+    CreateRecipientUseCase,
+    EditRecipientUseCase,
+    DeleteRecipientUseCase,
   ],
 })
 export class HttpModule {}
