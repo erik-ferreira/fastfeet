@@ -2,6 +2,7 @@ import {
   Param,
   Delete,
   HttpCode,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
@@ -9,12 +10,12 @@ import {
 
 import { DeleteRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/delete-recipient"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 @Controller("/recipients/:recipientId")
-@Public()
+@UseGuards(AdminGuard)
 export class DeleteRecipientController {
   constructor(private deleteRecipient: DeleteRecipientUseCase) {}
 

@@ -9,12 +9,9 @@ import {
 
 import { MarkOrderAsWaitingUseCase } from "@/domain/delivery-and-order/application/use-cases/mark-order-as-waiting"
 
-import { Public } from "@/infra/auth/public"
-
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 @Controller("/orders/:orderId/mark-order-as-waiting")
-@Public()
 export class MarkOrderAsWaitingController {
   constructor(private markOrderAsWaiting: MarkOrderAsWaitingUseCase) {}
 

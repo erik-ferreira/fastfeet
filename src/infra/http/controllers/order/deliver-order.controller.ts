@@ -12,7 +12,6 @@ import {
 
 import { DeliverOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/deliver-order"
 
-import { Public } from "@/infra/auth/public"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { NotAllowedError } from "@/core/errors/not-allowed-error"
@@ -28,7 +27,6 @@ const bodyValidationPipe = new ZodValidationPipe(deliverOrderSchema)
 type DeliverOrderBodySchema = z.infer<typeof deliverOrderSchema>
 
 @Controller("/orders/:orderId/deliver")
-@Public()
 export class DeliverOrderController {
   constructor(private deliverOrder: DeliverOrderUseCase) {}
 

@@ -9,7 +9,6 @@ import {
 
 import { FetchOrdersFromSpecificRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-orders-from-specific-recipient"
 
-import { Public } from "@/infra/auth/public"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { OrderPresenter } from "@/infra/http/presenters/order-presenter"
@@ -21,7 +20,6 @@ type PageQueryParamSchema = z.infer<typeof pageQueryParamSchema>
 const queryPageValidationPipe = new ZodValidationPipe(pageQueryParamSchema)
 
 @Controller("/orders/recipients/:recipientId")
-@Public()
 export class FetchOrderController {
   constructor(
     private fetchOrdersFromSpecificRecipient: FetchOrdersFromSpecificRecipientUseCase,

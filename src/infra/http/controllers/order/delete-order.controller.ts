@@ -2,6 +2,7 @@ import {
   Param,
   Delete,
   HttpCode,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
@@ -9,12 +10,12 @@ import {
 
 import { DeleteOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/delete-order"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 @Controller("/orders/:orderId")
-@Public()
+@UseGuards(AdminGuard)
 export class DeleteOrderController {
   constructor(private deleteOrder: DeleteOrderUseCase) {}
 

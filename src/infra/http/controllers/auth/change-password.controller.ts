@@ -2,16 +2,17 @@ import z from "zod"
 import {
   Body,
   Post,
+  Param,
   UsePipes,
+  UseGuards,
   Controller,
   BadRequestException,
   NotFoundException,
-  Param,
 } from "@nestjs/common"
 
 import { ChangeUserPasswordUserUseCase } from "@/domain/delivery-and-order/application/use-cases/change-user-password"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
@@ -23,7 +24,7 @@ const changePasswordBodySchema = z.object({
 type ChangePasswordBodySchema = z.infer<typeof changePasswordBodySchema>
 
 @Controller("/sessions/change-password/:userId")
-@Public()
+@UseGuards(AdminGuard)
 export class ChangePasswordController {
   constructor(private changeUserPassword: ChangeUserPasswordUserUseCase) {}
 

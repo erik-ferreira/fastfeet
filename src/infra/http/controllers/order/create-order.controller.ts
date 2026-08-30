@@ -4,13 +4,14 @@ import {
   Post,
   UsePipes,
   HttpCode,
+  UseGuards,
   Controller,
   BadRequestException,
 } from "@nestjs/common"
 
 import { CreateOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/create-order"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 const createOrderSchema = z.object({
@@ -32,7 +33,7 @@ const createOrderSchema = z.object({
 type CreateOrderBodySchema = z.infer<typeof createOrderSchema>
 
 @Controller("/orders")
-@Public()
+@UseGuards(AdminGuard)
 export class CreateOrderController {
   constructor(private createOrder: CreateOrderUseCase) {}
 

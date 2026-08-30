@@ -2,16 +2,17 @@ import z from "zod"
 import {
   Body,
   Post,
-  UsePipes,
-  Controller,
-  BadRequestException,
-  ConflictException,
   HttpCode,
+  UsePipes,
+  UseGuards,
+  Controller,
+  ConflictException,
+  BadRequestException,
 } from "@nestjs/common"
 
 import { CreateRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/create-recipient"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-cases/errors/already-exists-error"
@@ -35,7 +36,7 @@ const createRecipientSchema = z.object({
 type CreateRecipientBodySchema = z.infer<typeof createRecipientSchema>
 
 @Controller("/recipients")
-@Public()
+@UseGuards(AdminGuard)
 export class CreateRecipientController {
   constructor(private createRecipient: CreateRecipientUseCase) {}
 

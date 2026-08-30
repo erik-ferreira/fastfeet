@@ -1,21 +1,22 @@
 import {
   Get,
   Param,
+  UseGuards,
   Controller,
-  BadRequestException,
   NotFoundException,
+  BadRequestException,
 } from "@nestjs/common"
 
 import { GetDeliveryDriverByCpfUseCase } from "@/domain/delivery-and-order/application/use-cases/get-delivery-driver-by-cpf"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { DeliveryDriverPresenter } from "@/infra/http/presenters/delivery-driver-presenter"
 
 @Controller("/delivery-drivers/:deliveryDriverCpf")
-@Public()
+@UseGuards(AdminGuard)
 export class GetOneDeliveryDriverController {
   constructor(private getOneDeliveryDrivers: GetDeliveryDriverByCpfUseCase) {}
 

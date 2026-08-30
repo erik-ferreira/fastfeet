@@ -1,21 +1,22 @@
 import {
   Get,
   Param,
+  UseGuards,
   Controller,
-  BadRequestException,
   NotFoundException,
+  BadRequestException,
 } from "@nestjs/common"
 
 import { GetOrderDetailsUseCase } from "@/domain/delivery-and-order/application/use-cases/get-order-details"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { OrderPresenter } from "@/infra/http/presenters/order-presenter"
 
 @Controller("/orders/:orderId")
-@Public()
+@UseGuards(AdminGuard)
 export class GetOneOrderController {
   constructor(private getOrder: GetOrderDetailsUseCase) {}
 

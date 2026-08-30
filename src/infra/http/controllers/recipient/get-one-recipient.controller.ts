@@ -1,6 +1,7 @@
 import {
   Get,
   Param,
+  UseGuards,
   Controller,
   BadRequestException,
   NotFoundException,
@@ -8,14 +9,14 @@ import {
 
 import { GetRecipientByCpfUseCase } from "@/domain/delivery-and-order/application/use-cases/get-recipient-by-cpf"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { RecipientPresenter } from "@/infra/http/presenters/recipient-presenter"
 
 @Controller("/recipients/:recipientCpf")
-@Public()
+@UseGuards(AdminGuard)
 export class GetOneRecipientController {
   constructor(private getOneRecipient: GetRecipientByCpfUseCase) {}
 

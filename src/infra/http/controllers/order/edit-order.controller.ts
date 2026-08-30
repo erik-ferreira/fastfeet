@@ -5,6 +5,7 @@ import {
   Param,
   HttpCode,
   UsePipes,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
@@ -13,7 +14,7 @@ import {
 
 import { EditOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-order"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
@@ -39,7 +40,7 @@ const bodyValidationPipe = new ZodValidationPipe(editOrderSchema)
 type EditOrderBodySchema = z.infer<typeof editOrderSchema>
 
 @Controller("/orders/:orderId")
-@Public()
+@UseGuards(AdminGuard)
 export class EditOrderController {
   constructor(private editOrder: EditOrderUseCase) {}
 

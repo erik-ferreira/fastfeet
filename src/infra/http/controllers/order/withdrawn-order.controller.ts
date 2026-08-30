@@ -11,7 +11,6 @@ import {
 
 import { WithdrawnOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/withdrawn-order"
 
-import { Public } from "@/infra/auth/public"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
@@ -25,7 +24,6 @@ const bodyValidationPipe = new ZodValidationPipe(withdrawnOrderSchema)
 type WithdrawnOrderBodySchema = z.infer<typeof withdrawnOrderSchema>
 
 @Controller("/orders/:orderId/withdrawn-order")
-@Public()
 export class WithdrawnOrderController {
   constructor(private withdrawnOrder: WithdrawnOrderUseCase) {}
 

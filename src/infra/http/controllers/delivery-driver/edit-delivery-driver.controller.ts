@@ -5,6 +5,7 @@ import {
   Param,
   HttpCode,
   UsePipes,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
@@ -12,7 +13,7 @@ import {
 
 import { EditDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-delivery-driver"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
@@ -27,7 +28,7 @@ const bodyValidationPipe = new ZodValidationPipe(editDeliveryDriverSchema)
 type EditDeliveryDriverBodySchema = z.infer<typeof editDeliveryDriverSchema>
 
 @Controller("/delivery-drivers/:deliveryDriverId")
-@Public()
+@UseGuards(AdminGuard)
 export class EditDeliveryDriverController {
   constructor(private editDeliveryDriver: EditDeliveryDriverUseCase) {}
 

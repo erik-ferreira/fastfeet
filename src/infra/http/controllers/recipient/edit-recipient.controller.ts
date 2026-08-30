@@ -5,6 +5,7 @@ import {
   Param,
   HttpCode,
   UsePipes,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
@@ -12,7 +13,7 @@ import {
 
 import { EditRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-recipient"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
@@ -29,7 +30,7 @@ const bodyValidationPipe = new ZodValidationPipe(editRecipientSchema)
 type EditRecipientBodySchema = z.infer<typeof editRecipientSchema>
 
 @Controller("/recipients/:recipientId")
-@Public()
+@UseGuards(AdminGuard)
 export class EditRecipientController {
   constructor(private editRecipient: EditRecipientUseCase) {}
 

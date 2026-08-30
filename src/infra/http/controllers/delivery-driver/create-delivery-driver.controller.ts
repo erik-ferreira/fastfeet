@@ -2,16 +2,17 @@ import z from "zod"
 import {
   Body,
   Post,
+  HttpCode,
   UsePipes,
+  UseGuards,
   Controller,
   BadRequestException,
   ConflictException,
-  HttpCode,
 } from "@nestjs/common"
 
 import { CreateDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/create-delivery-driver"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { AlreadyExistsError } from "@/domain/delivery-and-order/application/use-cases/errors/already-exists-error"
@@ -28,7 +29,7 @@ const createDeliveryDriverSchema = z.object({
 type CreateDeliveryDriverBodySchema = z.infer<typeof createDeliveryDriverSchema>
 
 @Controller("/delivery-drivers")
-@Public()
+@UseGuards(AdminGuard)
 export class CreateDeliveryDriverController {
   constructor(private createDeliveryDriver: CreateDeliveryDriverUseCase) {}
 

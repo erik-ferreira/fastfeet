@@ -1,9 +1,15 @@
 import z from "zod"
-import { Get, Controller, BadRequestException, Query } from "@nestjs/common"
+import {
+  Get,
+  Query,
+  UseGuards,
+  Controller,
+  BadRequestException,
+} from "@nestjs/common"
 
 import { FetchOrdersUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-orders"
 
-import { Public } from "@/infra/auth/public"
+import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { OrderPresenter } from "@/infra/http/presenters/order-presenter"
@@ -15,7 +21,7 @@ type PageQueryParamSchema = z.infer<typeof pageQueryParamSchema>
 const queryPageValidationPipe = new ZodValidationPipe(pageQueryParamSchema)
 
 @Controller("/orders")
-@Public()
+@UseGuards(AdminGuard)
 export class FetchOrderController {
   constructor(private fetchOrders: FetchOrdersUseCase) {}
 

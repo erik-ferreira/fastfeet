@@ -9,12 +9,9 @@ import {
 
 import { ReturnOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/return-order"
 
-import { Public } from "@/infra/auth/public"
-
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 @Controller("/orders/:orderId/return-order")
-@Public()
 export class ReturnOrderController {
   constructor(private returnOrder: ReturnOrderUseCase) {}
 

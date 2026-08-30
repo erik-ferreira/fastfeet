@@ -3,7 +3,6 @@ import { Get, Query, Controller, BadRequestException } from "@nestjs/common"
 
 import { FetchNearbyOrdersTheDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-nearby-orders-the-delivery-driver"
 
-import { Public } from "@/infra/auth/public"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { OrderPresenter } from "@/infra/http/presenters/order-presenter"
@@ -25,7 +24,6 @@ type FetchNearbyOrdersQueryParamSchema = z.infer<
 >
 
 @Controller("/orders/nearby")
-@Public()
 export class FetchOrderController {
   constructor(
     private fetchNearbyOrdersTheDeliveryDriver: FetchNearbyOrdersTheDeliveryDriverUseCase,
