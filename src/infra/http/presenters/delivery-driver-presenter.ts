@@ -1,13 +1,13 @@
 import { DeliveryDriver } from "@/domain/delivery-and-order/enterprise/entities/delivery-driver"
 
 export class DeliveryDriverPresenter {
-  static toHTTP(question: DeliveryDriver) {
+  static toHTTP(deliveryDriver: DeliveryDriver) {
     return {
-      id: question.id.toString(),
-      name: question.name,
-      cpf: question.cpf.raw,
-      createdAt: question.createdAt,
-      updatedAt: question.updatedAt,
+      id: deliveryDriver.id.toString(),
+      name: deliveryDriver.name,
+      cpf: deliveryDriver.cpf.raw,
+      createdAt: deliveryDriver.createdAt,
+      updatedAt: deliveryDriver.updatedAt,
     }
   }
 }

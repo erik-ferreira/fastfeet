@@ -22,11 +22,11 @@ const createRecipientSchema = z.object({
     .string()
     .min(1, "Informe o cpf do entregador")
     .length(11, "CPF inválido"),
-  latitude: z
+  latitude: z.coerce
     .number("Latitude inválida")
     .min(-90, "Latitude deve ser maior ou igual a -90")
     .max(90, "Latitude deve ser menor ou igual a 90"),
-  longitude: z
+  longitude: z.coerce
     .number("Longitude inválida")
     .min(-180, "Longitude deve ser maior ou igual a -180")
     .max(180, "Longitude deve ser menor ou igual a 180"),
