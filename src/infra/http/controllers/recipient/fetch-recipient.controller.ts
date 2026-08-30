@@ -14,7 +14,7 @@ type PageQueryParamSchema = z.infer<typeof pageQueryParamSchema>
 
 const queryPageValidationPipe = new ZodValidationPipe(pageQueryParamSchema)
 
-@Controller("/recipient")
+@Controller("/recipients")
 @Public()
 export class FetchRecipientController {
   constructor(private fetchRecipients: FetchRecipientsUseCase) {}

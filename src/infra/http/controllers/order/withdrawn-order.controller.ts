@@ -24,7 +24,7 @@ const bodyValidationPipe = new ZodValidationPipe(withdrawnOrderSchema)
 
 type WithdrawnOrderBodySchema = z.infer<typeof withdrawnOrderSchema>
 
-@Controller("/order/:orderId/withdrawn-order")
+@Controller("/orders/:orderId/withdrawn-order")
 @Public()
 export class WithdrawnOrderController {
   constructor(private withdrawnOrder: WithdrawnOrderUseCase) {}

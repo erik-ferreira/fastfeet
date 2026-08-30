@@ -24,7 +24,7 @@ type FetchNearbyOrdersQueryParamSchema = z.infer<
   typeof fetchNearbyOrdersQueryParamSchema
 >
 
-@Controller("/order/nearby")
+@Controller("/orders/nearby")
 @Public()
 export class FetchOrderController {
   constructor(

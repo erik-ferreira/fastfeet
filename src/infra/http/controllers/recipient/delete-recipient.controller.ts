@@ -13,7 +13,7 @@ import { Public } from "@/infra/auth/public"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
-@Controller("/recipient/:recipientId")
+@Controller("/recipients/:recipientId")
 @Public()
 export class DeleteRecipientController {
   constructor(private deleteRecipient: DeleteRecipientUseCase) {}

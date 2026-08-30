@@ -14,7 +14,7 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { RecipientPresenter } from "@/infra/http/presenters/recipient-presenter"
 
-@Controller("/recipient/:recipientCpf")
+@Controller("/recipients/:recipientCpf")
 @Public()
 export class GetOneRecipientController {
   constructor(private getOneRecipient: GetRecipientByCpfUseCase) {}

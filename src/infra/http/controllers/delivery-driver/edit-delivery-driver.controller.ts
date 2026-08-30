@@ -26,7 +26,7 @@ const bodyValidationPipe = new ZodValidationPipe(editDeliveryDriverSchema)
 
 type EditDeliveryDriverBodySchema = z.infer<typeof editDeliveryDriverSchema>
 
-@Controller("/delivery-driver/:deliveryDriverId")
+@Controller("/delivery-drivers/:deliveryDriverId")
 @Public()
 export class EditDeliveryDriverController {
   constructor(private editDeliveryDriver: EditDeliveryDriverUseCase) {}

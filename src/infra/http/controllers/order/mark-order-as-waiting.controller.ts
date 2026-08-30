@@ -13,7 +13,7 @@ import { Public } from "@/infra/auth/public"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
-@Controller("/order/:orderId/mark-order-as-waiting")
+@Controller("/orders/:orderId/mark-order-as-waiting")
 @Public()
 export class MarkOrderAsWaitingController {
   constructor(private markOrderAsWaiting: MarkOrderAsWaitingUseCase) {}

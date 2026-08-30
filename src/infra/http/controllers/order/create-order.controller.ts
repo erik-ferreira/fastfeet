@@ -31,7 +31,7 @@ const createOrderSchema = z.object({
 
 type CreateOrderBodySchema = z.infer<typeof createOrderSchema>
 
-@Controller("/order")
+@Controller("/orders")
 @Public()
 export class CreateOrderController {
   constructor(private createOrder: CreateOrderUseCase) {}

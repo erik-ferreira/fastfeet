@@ -28,7 +28,7 @@ const bodyValidationPipe = new ZodValidationPipe(editRecipientSchema)
 
 type EditRecipientBodySchema = z.infer<typeof editRecipientSchema>
 
-@Controller("/recipient/:recipientId")
+@Controller("/recipients/:recipientId")
 @Public()
 export class EditRecipientController {
   constructor(private editRecipient: EditRecipientUseCase) {}

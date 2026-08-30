@@ -38,7 +38,7 @@ const bodyValidationPipe = new ZodValidationPipe(editOrderSchema)
 
 type EditOrderBodySchema = z.infer<typeof editOrderSchema>
 
-@Controller("/order/:orderId")
+@Controller("/orders/:orderId")
 @Public()
 export class EditOrderController {
   constructor(private editOrder: EditOrderUseCase) {}

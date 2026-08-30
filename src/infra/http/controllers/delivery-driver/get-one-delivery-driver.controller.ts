@@ -14,7 +14,7 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { DeliveryDriverPresenter } from "@/infra/http/presenters/delivery-driver-presenter"
 
-@Controller("/delivery-driver/:deliveryDriverCpf")
+@Controller("/delivery-drivers/:deliveryDriverCpf")
 @Public()
 export class GetOneDeliveryDriverController {
   constructor(private getOneDeliveryDrivers: GetDeliveryDriverByCpfUseCase) {}

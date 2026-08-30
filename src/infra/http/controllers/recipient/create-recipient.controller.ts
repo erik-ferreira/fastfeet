@@ -34,7 +34,7 @@ const createRecipientSchema = z.object({
 
 type CreateRecipientBodySchema = z.infer<typeof createRecipientSchema>
 
-@Controller("/recipient")
+@Controller("/recipients")
 @Public()
 export class CreateRecipientController {
   constructor(private createRecipient: CreateRecipientUseCase) {}

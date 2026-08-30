@@ -13,7 +13,7 @@ import { Public } from "@/infra/auth/public"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
-@Controller("/order/:orderId/return-order")
+@Controller("/orders/:orderId/return-order")
 @Public()
 export class ReturnOrderController {
   constructor(private returnOrder: ReturnOrderUseCase) {}

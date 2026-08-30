@@ -27,7 +27,7 @@ const createDeliveryDriverSchema = z.object({
 
 type CreateDeliveryDriverBodySchema = z.infer<typeof createDeliveryDriverSchema>
 
-@Controller("/delivery-driver")
+@Controller("/delivery-drivers")
 @Public()
 export class CreateDeliveryDriverController {
   constructor(private createDeliveryDriver: CreateDeliveryDriverUseCase) {}

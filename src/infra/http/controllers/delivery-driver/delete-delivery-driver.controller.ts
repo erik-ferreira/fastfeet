@@ -13,7 +13,7 @@ import { Public } from "@/infra/auth/public"
 
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
-@Controller("/delivery-driver/:deliveryDriverId")
+@Controller("/delivery-drivers/:deliveryDriverId")
 @Public()
 export class DeleteDeliveryDriverController {
   constructor(private deleteDeliveryDriver: DeleteDeliveryDriverUseCase) {}

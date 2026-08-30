@@ -14,7 +14,7 @@ import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 import { OrderPresenter } from "@/infra/http/presenters/order-presenter"
 
-@Controller("/order/:orderId")
+@Controller("/orders/:orderId")
 @Public()
 export class GetOneOrderController {
   constructor(private getOrder: GetOrderDetailsUseCase) {}

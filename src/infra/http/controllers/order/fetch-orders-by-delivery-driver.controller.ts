@@ -20,7 +20,7 @@ type PageQueryParamSchema = z.infer<typeof pageQueryParamSchema>
 
 const queryPageValidationPipe = new ZodValidationPipe(pageQueryParamSchema)
 
-@Controller("/order/delivery-drivers/:deliveryDriverId")
+@Controller("/orders/delivery-drivers/:deliveryDriverId")
 @Public()
 export class FetchOrderController {
   constructor(
