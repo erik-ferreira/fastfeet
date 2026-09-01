@@ -37,7 +37,7 @@ beforeAll(async () => {
   DomainEvents.shouldRun = false
 
   execSync("npx prisma migrate deploy")
-}, 20000)
+})
 
 afterAll(async () => {
   await prisma.$executeRawUnsafe(
