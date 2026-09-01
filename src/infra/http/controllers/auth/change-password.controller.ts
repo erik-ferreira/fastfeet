@@ -3,7 +3,6 @@ import {
   Body,
   Post,
   Param,
-  UsePipes,
   UseGuards,
   Controller,
   BadRequestException,
@@ -21,6 +20,8 @@ const changePasswordBodySchema = z.object({
   newPassword: z.string().min(6),
 })
 
+const bodyValidationPipe = new ZodValidationPipe(changePasswordBodySchema)
+
 type ChangePasswordBodySchema = z.infer<typeof changePasswordBodySchema>
 
 @Controller("/sessions/change-password/:userId")
@@ -29,9 +30,8 @@ export class ChangePasswordController {
   constructor(private changeUserPassword: ChangeUserPasswordUserUseCase) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(changePasswordBodySchema))
   async handle(
-    @Body() body: ChangePasswordBodySchema,
+    @Body(bodyValidationPipe) body: ChangePasswordBodySchema,
     @Param("userId") userId: string,
   ) {
     const { newPassword } = body
