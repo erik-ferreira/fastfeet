@@ -16,23 +16,26 @@ describe("Fetch Admins", () => {
   })
 
   it("should be able to fetch admins", async () => {
-    const admin1 = makeAdmin({
-      cpf: Cpf.create("10000000000"),
-    })
-    const admin2 = makeAdmin({
-      cpf: Cpf.create("20000000000"),
-    })
-    const admin3 = makeAdmin({
-      cpf: Cpf.create("30000000000"),
-    })
-    const admin4 = makeAdmin({
-      cpf: Cpf.create("40000000000"),
-    })
-
-    await inMemoryAdminRepository.create(admin1)
-    await inMemoryAdminRepository.create(admin2)
-    await inMemoryAdminRepository.create(admin3)
-    await inMemoryAdminRepository.create(admin4)
+    await inMemoryAdminRepository.create(
+      makeAdmin({
+        createdAt: new Date(2026, 7, 31),
+      }),
+    )
+    await inMemoryAdminRepository.create(
+      makeAdmin({
+        createdAt: new Date(2026, 7, 28),
+      }),
+    )
+    await inMemoryAdminRepository.create(
+      makeAdmin({
+        createdAt: new Date(2026, 7, 25),
+      }),
+    )
+    await inMemoryAdminRepository.create(
+      makeAdmin({
+        createdAt: new Date(2026, 7, 10),
+      }),
+    )
 
     const result = await sut.execute({
       page: 1,
@@ -41,10 +44,10 @@ describe("Fetch Admins", () => {
     expect(result.isRight()).toBe(true)
     if (result.isRight()) {
       expect(result.value.admins).toEqual([
-        expect.objectContaining({ cpf: Cpf.create("10000000000") }),
-        expect.objectContaining({ cpf: Cpf.create("20000000000") }),
-        expect.objectContaining({ cpf: Cpf.create("30000000000") }),
-        expect.objectContaining({ cpf: Cpf.create("40000000000") }),
+        expect.objectContaining({ createdAt: new Date(2026, 7, 31) }),
+        expect.objectContaining({ createdAt: new Date(2026, 7, 28) }),
+        expect.objectContaining({ createdAt: new Date(2026, 7, 25) }),
+        expect.objectContaining({ createdAt: new Date(2026, 7, 10) }),
       ])
     }
   })

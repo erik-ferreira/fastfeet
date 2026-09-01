@@ -16,23 +16,26 @@ describe("Fetch Delivery Drivers", () => {
   })
 
   it("should be able to fetch delivery drivers", async () => {
-    const deliveryDriver1 = makeDeliveryDriver({
-      cpf: Cpf.create("10000000000"),
-    })
-    const deliveryDriver2 = makeDeliveryDriver({
-      cpf: Cpf.create("20000000000"),
-    })
-    const deliveryDriver3 = makeDeliveryDriver({
-      cpf: Cpf.create("30000000000"),
-    })
-    const deliveryDriver4 = makeDeliveryDriver({
-      cpf: Cpf.create("40000000000"),
-    })
-
-    await inMemoryDeliveryDriverRepository.create(deliveryDriver1)
-    await inMemoryDeliveryDriverRepository.create(deliveryDriver2)
-    await inMemoryDeliveryDriverRepository.create(deliveryDriver3)
-    await inMemoryDeliveryDriverRepository.create(deliveryDriver4)
+    await inMemoryDeliveryDriverRepository.create(
+      makeDeliveryDriver({
+        createdAt: new Date(2026, 7, 28),
+      }),
+    )
+    await inMemoryDeliveryDriverRepository.create(
+      makeDeliveryDriver({
+        createdAt: new Date(2026, 7, 31),
+      }),
+    )
+    await inMemoryDeliveryDriverRepository.create(
+      makeDeliveryDriver({
+        createdAt: new Date(2026, 7, 10),
+      }),
+    )
+    await inMemoryDeliveryDriverRepository.create(
+      makeDeliveryDriver({
+        createdAt: new Date(2026, 7, 25),
+      }),
+    )
 
     const result = await sut.execute({
       page: 1,
@@ -41,10 +44,10 @@ describe("Fetch Delivery Drivers", () => {
     expect(result.isRight()).toBe(true)
     if (result.isRight()) {
       expect(result.value.deliveryDrivers).toEqual([
-        expect.objectContaining({ cpf: Cpf.create("10000000000") }),
-        expect.objectContaining({ cpf: Cpf.create("20000000000") }),
-        expect.objectContaining({ cpf: Cpf.create("30000000000") }),
-        expect.objectContaining({ cpf: Cpf.create("40000000000") }),
+        expect.objectContaining({ createdAt: new Date(2026, 7, 31) }),
+        expect.objectContaining({ createdAt: new Date(2026, 7, 28) }),
+        expect.objectContaining({ createdAt: new Date(2026, 7, 25) }),
+        expect.objectContaining({ createdAt: new Date(2026, 7, 10) }),
       ])
     }
   })

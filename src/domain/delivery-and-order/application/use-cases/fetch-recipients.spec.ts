@@ -17,23 +17,21 @@ describe("Fetch Recipients", () => {
   })
 
   it("should be able to fetch recipients", async () => {
-    const recipient1 = makeRecipient({
-      cpf: Cpf.create("10000000000"),
-    })
-    const recipient2 = makeRecipient({
-      cpf: Cpf.create("20000000000"),
-    })
-    const recipient3 = makeRecipient({
-      cpf: Cpf.create("30000000000"),
-    })
-    const recipient4 = makeRecipient({
-      cpf: Cpf.create("40000000000"),
-    })
-
-    await inMemoryRecipientRepository.create(recipient1)
-    await inMemoryRecipientRepository.create(recipient2)
-    await inMemoryRecipientRepository.create(recipient3)
-    await inMemoryRecipientRepository.create(recipient4)
+    await inMemoryRecipientRepository.create(
+      makeRecipient({
+        createdAt: new Date(2026, 0, 20),
+      }),
+    )
+    await inMemoryRecipientRepository.create(
+      makeRecipient({
+        createdAt: new Date(2026, 0, 18),
+      }),
+    )
+    await inMemoryRecipientRepository.create(
+      makeRecipient({
+        createdAt: new Date(2026, 0, 23),
+      }),
+    )
 
     const result = await sut.execute({
       page: 1,
@@ -42,10 +40,9 @@ describe("Fetch Recipients", () => {
     expect(result.isRight()).toBe(true)
     if (result.isRight()) {
       expect(result.value.recipients).toEqual([
-        expect.objectContaining({ cpf: recipient4.cpf }),
-        expect.objectContaining({ cpf: recipient3.cpf }),
-        expect.objectContaining({ cpf: recipient2.cpf }),
-        expect.objectContaining({ cpf: recipient1.cpf }),
+        expect.objectContaining({ createdAt: new Date(2026, 0, 23) }),
+        expect.objectContaining({ createdAt: new Date(2026, 0, 20) }),
+        expect.objectContaining({ createdAt: new Date(2026, 0, 18) }),
       ])
     }
   })
