@@ -24,6 +24,19 @@ import { CreateRecipientController } from "@/infra/http/controllers/recipient/cr
 import { EditRecipientController } from "@/infra/http/controllers/recipient/edit-recipient.controller"
 import { DeleteRecipientController } from "@/infra/http/controllers/recipient/delete-recipient.controller"
 
+import { CreateOrderController } from "@/infra/http/controllers/order/create-order.controller"
+import { DeleteOrderController } from "@/infra/http/controllers/order/delete-order.controller"
+import { DeliverOrderController } from "@/infra/http/controllers/order/deliver-order.controller"
+import { EditOrderController } from "@/infra/http/controllers/order/edit-order.controller"
+import { FetchNearbyOrdersTheDeliveryDriverController } from "@/infra/http/controllers/order/fetch-nearby-orders-the-delivery-driver.controller"
+import { FetchOrdersByDeliveryDriverController } from "@/infra/http/controllers/order/fetch-orders-by-delivery-driver.controller"
+import { FetchOrdersFromSpecificRecipientController } from "@/infra/http/controllers/order/fetch-orders-from-specific-recipient.controller"
+import { FetchOrderController } from "@/infra/http/controllers/order/fetch-orders.controller"
+import { GetOneOrderController } from "@/infra/http/controllers/order/get-order.controller"
+import { MarkOrderAsWaitingController } from "@/infra/http/controllers/order/mark-order-as-waiting.controller"
+import { ReturnOrderController } from "@/infra/http/controllers/order/return-order.controller"
+import { WithdrawnOrderController } from "@/infra/http/controllers/order/withdrawn-order.controller"
+
 // --------------------- use cases ---------------------
 
 import { AuthenticateUserUseCase } from "@/domain/delivery-and-order/application/use-cases/authenticate-user"
@@ -46,6 +59,19 @@ import { GetAdminByIdUseCase } from "@/domain/delivery-and-order/application/use
 import { CreateAdminUseCase } from "@/domain/delivery-and-order/application/use-cases/create-admin"
 import { EditAdminUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-admin"
 import { DeleteAdminUseCase } from "@/domain/delivery-and-order/application/use-cases/delete-admin"
+
+import { CreateOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/create-order"
+import { DeleteOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/delete-order"
+import { DeliverOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/deliver-order"
+import { EditOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/edit-order"
+import { FetchNearbyOrdersTheDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-nearby-orders-the-delivery-driver"
+import { FetchOrdersDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-orders-delivery-driver"
+import { FetchOrdersFromSpecificRecipientUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-orders-from-specific-recipient"
+import { FetchOrdersUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-orders"
+import { GetOrderDetailsUseCase } from "@/domain/delivery-and-order/application/use-cases/get-order-details"
+import { MarkOrderAsWaitingUseCase } from "@/domain/delivery-and-order/application/use-cases/mark-order-as-waiting"
+import { ReturnOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/return-order"
+import { WithdrawnOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/withdrawn-order"
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -70,6 +96,19 @@ import { DeleteAdminUseCase } from "@/domain/delivery-and-order/application/use-
     CreateRecipientController,
     EditRecipientController,
     DeleteRecipientController,
+
+    CreateOrderController,
+    DeleteOrderController,
+    DeliverOrderController,
+    EditOrderController,
+    FetchNearbyOrdersTheDeliveryDriverController,
+    FetchOrdersByDeliveryDriverController,
+    FetchOrdersFromSpecificRecipientController,
+    FetchOrderController,
+    GetOneOrderController,
+    MarkOrderAsWaitingController,
+    ReturnOrderController,
+    WithdrawnOrderController,
   ],
   providers: [
     AuthenticateUserUseCase,
@@ -92,6 +131,19 @@ import { DeleteAdminUseCase } from "@/domain/delivery-and-order/application/use-
     CreateRecipientUseCase,
     EditRecipientUseCase,
     DeleteRecipientUseCase,
+
+    CreateOrderUseCase,
+    DeleteOrderUseCase,
+    DeliverOrderUseCase,
+    EditOrderUseCase,
+    FetchNearbyOrdersTheDeliveryDriverUseCase,
+    FetchOrdersDeliveryDriverUseCase,
+    FetchOrdersFromSpecificRecipientUseCase,
+    FetchOrdersUseCase,
+    GetOrderDetailsUseCase,
+    MarkOrderAsWaitingUseCase,
+    ReturnOrderUseCase,
+    WithdrawnOrderUseCase,
   ],
 })
 export class HttpModule {}

@@ -49,7 +49,9 @@ export class EditOrderUseCase {
       title,
       latitude,
       longitude,
-      recipientId: new UniqueEntityID(recipientId),
+      recipientId: recipientId
+        ? new UniqueEntityID(recipientId)
+        : order.recipientId,
     })
 
     await this.ordersRepository.save(order)

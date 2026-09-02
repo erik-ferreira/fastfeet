@@ -24,7 +24,7 @@ type FetchNearbyOrdersQueryParamSchema = z.infer<
 >
 
 @Controller("/orders/nearby")
-export class FetchOrderController {
+export class FetchNearbyOrdersTheDeliveryDriverController {
   constructor(
     private fetchNearbyOrdersTheDeliveryDriver: FetchNearbyOrdersTheDeliveryDriverUseCase,
   ) {}

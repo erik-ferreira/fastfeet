@@ -15,10 +15,11 @@ export class PrismaOrderMapper {
         recipientId: new UniqueEntityID(raw.recipientId),
         deliveryDriverId: raw.deliveryDriverId
           ? new UniqueEntityID(raw.deliveryDriverId)
-          : new UniqueEntityID(),
+          : null,
+
         attachmentId: raw.attachmentId
           ? new UniqueEntityID(raw.attachmentId)
-          : new UniqueEntityID(),
+          : null,
       },
       new UniqueEntityID(raw.id),
     )
@@ -26,6 +27,7 @@ export class PrismaOrderMapper {
 
   static toPrisma(order: Order): Prisma.OrderUncheckedCreateInput {
     return {
+      id: order.id.toString(),
       title: order.title,
       status: order.status,
       latitude: order.latitude,

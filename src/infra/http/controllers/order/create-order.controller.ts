@@ -14,6 +14,8 @@ import { CreateOrderUseCase } from "@/domain/delivery-and-order/application/use-
 import { AdminGuard } from "@/infra/auth/admin.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
+import { OrderPresenter } from "@/infra/http/presenters/order-presenter"
+
 const createOrderSchema = z.object({
   title: z.string().min(1, "Informe o título do pedido"),
   status: z.enum(["PENDING", "WAITING", "WITHDRAWN", "DELIVERED", "RETURNED"]),
@@ -64,5 +66,9 @@ export class CreateOrderController {
     if (result.isLeft()) {
       throw new BadRequestException()
     }
+
+    console.log("orderId", result.value.order.id.toString())
+
+    return { order: OrderPresenter.toHTTP(result.value.order) }
   }
 }
