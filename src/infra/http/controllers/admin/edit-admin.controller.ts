@@ -33,7 +33,7 @@ export class EditAdminController {
   constructor(private editAdmin: EditAdminUseCase) {}
 
   @Put()
-  @HttpCode(201)
+  @HttpCode(204)
   @UsePipes()
   async handle(
     @Body(bodyValidationPipe) body: EditAdminBodySchema,
