@@ -13,7 +13,7 @@ import { Cpf } from "@/domain/delivery-and-order/enterprise/entities/value-objec
 
 import { AdminFactory } from "@/test/factories/make-admin"
 
-describe("Create Admin (E2E)", () => {
+describe("Create Delivery Driver (E2E)", () => {
   let jwt: JwtService
   let app: INestApplication
   let prisma: PrismaService
@@ -33,16 +33,15 @@ describe("Create Admin (E2E)", () => {
     await app.init()
   })
 
-  test("[POST] /admins", async () => {
+  test("[POST] /delivery-drivers", async () => {
     const admin = await adminFactory.makePrismaAdmin({
       cpf: Cpf.create("12345678900"),
       password: await hash("123456", 8),
     })
-
     const accessToken = jwt.sign({ sub: admin.id.toString(), role: admin.role })
 
     const response = await request(app.getHttpServer())
-      .post("/admins")
+      .post("/delivery-drivers")
       .set("Authorization", `Bearer ${accessToken}`)
       .send({
         name: "John Doe",
@@ -52,10 +51,10 @@ describe("Create Admin (E2E)", () => {
 
     expect(response.statusCode).toBe(201)
 
-    const adminOnDatabase = await prisma.user.findUnique({
-      where: { cpf: "00123456789", name: "John Doe", role: "ADMIN" },
+    const deliveryDriverOnDatabase = await prisma.user.findUnique({
+      where: { cpf: "00123456789", name: "John Doe", role: "DELIVERY_DRIVER" },
     })
 
-    expect(adminOnDatabase).toBeTruthy()
+    expect(deliveryDriverOnDatabase).toBeTruthy()
   })
 })
