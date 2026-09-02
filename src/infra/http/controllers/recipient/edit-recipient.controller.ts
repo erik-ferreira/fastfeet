@@ -35,7 +35,7 @@ export class EditRecipientController {
   constructor(private editRecipient: EditRecipientUseCase) {}
 
   @Put()
-  @HttpCode(201)
+  @HttpCode(204)
   @UsePipes()
   async handle(
     @Body(bodyValidationPipe) body: EditRecipientBodySchema,
