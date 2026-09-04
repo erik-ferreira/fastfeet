@@ -1,8 +1,15 @@
 import z from "zod"
-import { Get, Query, Controller, BadRequestException } from "@nestjs/common"
+import {
+  Get,
+  Query,
+  UseGuards,
+  Controller,
+  BadRequestException,
+} from "@nestjs/common"
 
 import { FetchOrdersDeliveryDriverUseCase } from "@/domain/delivery-and-order/application/use-cases/fetch-orders-delivery-driver"
 
+import { DeliveryDriverGuard } from "@/infra/auth/delivery-driver.guard"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
 import { OrderPresenter } from "@/infra/http/presenters/order-presenter"
@@ -17,6 +24,7 @@ type PageQueryParamSchema = z.infer<typeof pageQueryParamSchema>
 const queryPageValidationPipe = new ZodValidationPipe(pageQueryParamSchema)
 
 @Controller("/orders/me")
+@UseGuards(DeliveryDriverGuard)
 export class FetchOrdersByDeliveryDriverController {
   constructor(
     private fetchOrdersByDeliveryDriver: FetchOrdersDeliveryDriverUseCase,
