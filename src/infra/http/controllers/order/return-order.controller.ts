@@ -2,6 +2,7 @@ import {
   Patch,
   Param,
   UsePipes,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
@@ -9,9 +10,12 @@ import {
 
 import { ReturnOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/return-order"
 
+import { AdminGuard } from "@/infra/auth/admin.guard"
+
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 @Controller("/orders/:orderId/return-order")
+@UseGuards(AdminGuard)
 export class ReturnOrderController {
   constructor(private returnOrder: ReturnOrderUseCase) {}
 

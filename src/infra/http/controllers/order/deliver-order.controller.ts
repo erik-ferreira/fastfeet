@@ -4,6 +4,7 @@ import {
   Patch,
   Param,
   UsePipes,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
@@ -11,6 +12,8 @@ import {
 } from "@nestjs/common"
 
 import { DeliverOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/deliver-order"
+
+import { DeliveryDriverGuard } from "@/infra/auth/delivery-driver.guard"
 
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
@@ -27,6 +30,7 @@ const bodyValidationPipe = new ZodValidationPipe(deliverOrderSchema)
 type DeliverOrderBodySchema = z.infer<typeof deliverOrderSchema>
 
 @Controller("/orders/:orderId/deliver")
+@UseGuards(DeliveryDriverGuard)
 export class DeliverOrderController {
   constructor(private deliverOrder: DeliverOrderUseCase) {}
 

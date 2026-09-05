@@ -132,13 +132,17 @@ export class Order extends AggregateRoot<OrderProps> {
   /**
    * Mark the order as delivered by providing a photo of the receipt
    */
-  deliver(attachmentId: UniqueEntityID) {
+  deliver(deliveryDriverId: UniqueEntityID, attachmentId: UniqueEntityID) {
     if (this.props.status !== "WITHDRAWN") {
       throw new Error("Only withdrawn orders can be marked as delivered.")
     }
 
     if (!this.props.deliveryDriverId) {
       throw new Error("Order must have an assigned driver to be delivered.")
+    }
+
+    if (!this.props.deliveryDriverId.equals(deliveryDriverId)) {
+      throw new Error("The order must be delivered by the assigned driver.")
     }
 
     this.props.attachmentId = attachmentId

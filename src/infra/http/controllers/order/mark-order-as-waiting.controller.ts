@@ -2,6 +2,7 @@ import {
   Patch,
   Param,
   UsePipes,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
@@ -9,9 +10,12 @@ import {
 
 import { MarkOrderAsWaitingUseCase } from "@/domain/delivery-and-order/application/use-cases/mark-order-as-waiting"
 
+import { AdminGuard } from "@/infra/auth/admin.guard"
+
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 @Controller("/orders/:orderId/mark-order-as-waiting")
+@UseGuards(AdminGuard)
 export class MarkOrderAsWaitingController {
   constructor(private markOrderAsWaiting: MarkOrderAsWaitingUseCase) {}
 

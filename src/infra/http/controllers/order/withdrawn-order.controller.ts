@@ -4,12 +4,15 @@ import {
   Patch,
   Param,
   UsePipes,
+  UseGuards,
   Controller,
   NotFoundException,
   BadRequestException,
 } from "@nestjs/common"
 
 import { WithdrawnOrderUseCase } from "@/domain/delivery-and-order/application/use-cases/withdrawn-order"
+
+import { AdminGuard } from "@/infra/auth/admin.guard"
 
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 
@@ -24,6 +27,7 @@ const bodyValidationPipe = new ZodValidationPipe(withdrawnOrderSchema)
 type WithdrawnOrderBodySchema = z.infer<typeof withdrawnOrderSchema>
 
 @Controller("/orders/:orderId/withdrawn-order")
+@UseGuards(AdminGuard)
 export class WithdrawnOrderController {
   constructor(private withdrawnOrder: WithdrawnOrderUseCase) {}
 

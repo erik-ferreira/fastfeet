@@ -65,7 +65,10 @@ export class DeliverOrderUseCase {
       return left(new ResourceNotFoundError())
     }
 
-    order.deliver(new UniqueEntityID(attachmentId))
+    order.deliver(
+      new UniqueEntityID(deliveryDriverId),
+      new UniqueEntityID(attachmentId),
+    )
 
     await this.ordersRepository.save(order)
 
