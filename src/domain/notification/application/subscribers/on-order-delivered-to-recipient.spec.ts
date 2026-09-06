@@ -40,7 +40,7 @@ describe("On Order Delivered to recipient", () => {
       deliveryDriverId: deliveryDriver.id,
     })
 
-    order.deliver(attachment.id)
+    order.deliver(deliveryDriver.id, attachment.id)
 
     await inMemoryOrderRepository.save(order)
 

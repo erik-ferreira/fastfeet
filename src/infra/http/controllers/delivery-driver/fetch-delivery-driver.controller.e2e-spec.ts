@@ -30,7 +30,7 @@ describe("Fetch Delivery Drivers (E2E)", () => {
     await app.init()
   })
 
-  test("[GET] /admins", async () => {
+  test("[GET] /delivery-drivers", async () => {
     const admin = await adminFactory.makePrismaAdmin()
     const accessToken = jwt.sign({ sub: admin.id.toString(), role: admin.role })
 
